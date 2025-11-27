@@ -148,3 +148,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_cayip")
 theme_override_styles/hover = SubResource("StyleBoxFlat_158mb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cayip")
 icon_alignment = 1
+
+[connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="viewLobbies"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="createLobby"]

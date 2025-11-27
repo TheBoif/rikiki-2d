@@ -32,7 +32,7 @@ public class LobbyPlayer
 {
     public string name;
     public Color color;
-    public ENetMultiplayerPeer peer;
+    public int peerUID;
 }
 
 public class LobbyProperties
