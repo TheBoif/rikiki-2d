@@ -1,0 +1,150 @@
+[gd_scene load_steps=11 format=3 uid="uid://b47yh3rjmhknp"]
+
+[ext_resource type="Texture2D" uid="uid://capsdbdenchr8" path="res://Textures/MenuBG.png" id="1_1rerr"]
+[ext_resource type="Script" uid="uid://dinag5uu4pvt7" path="res://Scripts/MenuScript.cs" id="1_cayip"]
+[ext_resource type="Texture2D" uid="uid://ct6qbxrwqvc32" path="res://Textures/exitbutton.png" id="2_xhh6f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1rerr"]
+font_size = 100
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_158mb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cayip"]
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhh6f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhh6f"]
+bg_color = Color(0.8288101, 2.7193873e-06, 5.7756904e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_158mb"]
+bg_color = Color(0.9999986, 0.27386314, 0.21445835, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cayip"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cayip")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1rerr")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="MenuContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 474.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+text = "Rikiki"
+label_settings = SubResource("LabelSettings_1rerr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_158mb")
+
+[node name="join lobby" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Join Lobby"
+
+[node name="create lobby" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Create Lobby"
+
+[node name="host server" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Host Server"
+
+[node name="host server2" type="Button" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Profile"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -131.0
+offset_bottom = 68.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 2
+theme_override_icons/icon = ExtResource("2_xhh6f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cayip")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xhh6f")
+icon_alignment = 1
+
+[node name="ExitButton" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 2
+theme_override_icons/icon = ExtResource("2_xhh6f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xhh6f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cayip")
+theme_override_styles/hover = SubResource("StyleBoxFlat_158mb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cayip")
+icon_alignment = 1

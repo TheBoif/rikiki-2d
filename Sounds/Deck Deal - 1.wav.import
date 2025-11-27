@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dg80rovx7et28"
+path="res://.godot/imported/Deck Deal - 1.wav-9e3a10b49ea6c6bf940beae3f3e3676b.sample"
+
+[deps]
+
+source_file="res://Sounds/Deck Deal - 1.wav"
+dest_files=["res://.godot/imported/Deck Deal - 1.wav-9e3a10b49ea6c6bf940beae3f3e3676b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

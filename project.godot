@@ -1,0 +1,35 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Rikiki 2D"
+config/features=PackedStringArray("4.5", "C#", "Mobile")
+
+[autoload]
+
+Server="*res://Scripts/Server/ServerScript.cs"
+GlobalScript="*res://Scripts/GlobalScript.cs"
+Lobby="*res://Scripts/Server/LobbyScript.cs"
+
+[display]
+
+window/size/viewport_width=1344
+window/size/viewport_height=756
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="Rikiki 2D"
+
+[rendering]
+
+renderer/rendering_method="mobile"
