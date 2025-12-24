@@ -13,7 +13,7 @@ public partial class ServerScript : Node
     // Networking defaults
     public const int DefaultPort = 25565;
     public const int MaxClients = 4095;
-    public string ServerIp = "127.0.0.1";
+    public string ServerIp = "localhost";
     bool setupDone = false;
 
     public override void _Ready()
@@ -40,7 +40,7 @@ public partial class ServerScript : Node
         }
         else
         {
-            var err = peer.CreateClient(ServerIp, DefaultPort);
+            Error err = peer.CreateClient(ServerIp, DefaultPort);
             if (err == Error.Ok)
             {
                 Multiplayer.MultiplayerPeer = peer;

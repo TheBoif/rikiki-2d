@@ -1,14 +1,25 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class LobbyScript : Node
 {
+	public VBoxContainer LobbyListContainer;
 	public static LobbyScript Instance { get; private set; }
+	public PackedScene LobbyListItem = GD.Load<PackedScene>("res://Scenes/LobbyListItem.tscn");
+	int i = 0;
 	public override void _Ready()
 	{
 		Instance = this;
+	}
+
+	public override void _Process(double delta)
+	{
+		if(i < 10 && GlobalScript.Instance.peer.GetUniqueId() != 1)
+        {
+			RpcId(1, "createLobby", "Lobby " + i, new Random().Next(0,3), 10, 6, "HostPlayer " + i, Colors.Red, GlobalScript.Instance.peer.GetUniqueId());
+            i++;
+        }
 	}
 	Dictionary<long,LobbyProperties> lobbies = new Dictionary<long, LobbyProperties>(); //for server
 	public LobbyProperties properties; //for players
@@ -21,7 +32,19 @@ public partial class LobbyScript : Node
 		LobbyPlayer hostPlayer = new LobbyPlayer(){name=hostName, color=hostColor, peerUID=hostPeerUID};
 		LobbyProperties newLobby = new LobbyProperties();
 		newLobby.lobbyName = lobbyName;
-		newLobby.LobbyID = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+		long id = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+		newLobby.LobbyID = id;
+		if(lobbies.ContainsKey(id))
+        {
+			int i = 1;
+			while(lobbies.ContainsKey(id + i))
+            {
+                i++;
+			}
+			newLobby.LobbyID = id + i;
+        }
+
 		newLobby.visibility = visibility;
 		newLobby.maxCards = maxCards;
 		newLobby.maxPlayers = maxPlayers;
@@ -45,16 +68,18 @@ public partial class LobbyScript : Node
 		List<long> lobbyIDs = new List<long>();
 		List<String> lobbyNames = new List<String>();
 		List<String> playerCount = new List<String>();
+		List<int> passwordProtected = new List<int>();
 		foreach(var lobby in lobbies)
 		{
-			if(lobby.Value.visibility == LobbyVisibility.Public)
+			if(lobby.Value.visibility != LobbyVisibility.Private)
 			{
 				lobbyIDs.Add(lobby.Key);
 				lobbyNames.Add(lobby.Value.lobbyName);
 				playerCount.Add(lobby.Value.players.Count + "/" + lobby.Value.maxPlayers);
+				passwordProtected.Add(LobbyVisibility.Protected == lobby.Value.visibility? 1 : 0);
 			}
 		}
-		RpcId(callerPeerUID, "viewLobbiesResp", lobbyIDs.ToArray(), lobbyNames.ToArray(), playerCount.ToArray());
+		RpcId(callerPeerUID, "viewLobbiesResp", lobbyIDs.ToArray(), lobbyNames.ToArray(), playerCount.ToArray(), passwordProtected.ToArray());
 	}
 	
 	#endregion
@@ -67,14 +92,34 @@ public partial class LobbyScript : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void viewLobbiesResp(long[] lobbyIDs, String[] lobbyNames, String[] playerCounts)
+	public void viewLobbiesResp(long[] lobbyIDs, String[] lobbyNames, String[] playerCounts, int[] passwordProtected)
 	{
 		GD.Print("Lobbies Available:");
+		foreach( Node child in LobbyListContainer.GetChildren())
+        {
+			child.QueueFree();
+        }
 		for(int i = 0; i < lobbyIDs.Length; i++)
 		{
+			Node newLobbyListItem = LobbyListItem.Instantiate();
+			newLobbyListItem.GetNode<Label>("LobbyHbox/Name").Text = lobbyNames[i];
+			newLobbyListItem.GetNode<Label>("LobbyHbox/PlayerCount").Text = playerCounts[i];
+			newLobbyListItem.GetNode<TextureRect>("LobbyHbox/PasswordProtected").Visible = passwordProtected[i] == 1;
+			LobbyListContainer.AddChild(newLobbyListItem);
+
 			GD.Print("Lobby ID: " + lobbyIDs[i] + " | Name: " + lobbyNames[i] + " | Players: " + playerCounts[i]);
 		}
+		if(LobbyListContainer.GetChildCount() == 0)
+        {
+			Label noLobbiesLabel = new Label();
+			noLobbiesLabel.Text = "No lobbies available.";
+			noLobbiesLabel.HorizontalAlignment = HorizontalAlignment.Center;
+			noLobbiesLabel.VerticalAlignment = VerticalAlignment.Center;
+			noLobbiesLabel.GrowHorizontal = Control.GrowDirection.Both;
+			noLobbiesLabel.GrowVertical = Control.GrowDirection.Both;
+			noLobbiesLabel.AddThemeFontSizeOverride("font_size", 50);
+            LobbyListContainer.AddChild(noLobbiesLabel);
+        }
 	}
 	#endregion
-
 }

@@ -12,9 +12,9 @@ public enum CardSuit
 
 public enum LobbyVisibility
 {
-    Public,
-    Protected,
-    Private
+    Public = 0,
+    Protected = 1,
+    Private = 2
 }
 
 #endregion

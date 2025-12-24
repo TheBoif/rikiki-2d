@@ -5,18 +5,16 @@ public partial class MenuScript : Node
 {
     public override void _Process(double delta)
     {
+        LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/LobbyBrowserVbox/LobbyScrollContainer/LobbyListVbox");
         if (OS.HasFeature("dedicated_server"))
         {
             GetTree().ChangeSceneToFile("res://Scenes/ServerScene.tscn");
         }
-    }
-
-    
-    public void viewLobbies()
+    }    
+    public void RefreshLobbies()
     {
         LobbyScript.Instance.RpcId(1, "viewLobbiesReq", GlobalScript.Instance.peer.GetUniqueId());
     }
-
     public void createLobby()
     {
         Random random = new Random();

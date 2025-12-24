@@ -9,7 +9,6 @@ public partial class GlobalScript : Node
 	
 	public override void _Ready()
 	{
-		peer = new ENetMultiplayerPeer();
 		Instance = this;
 	}
 }

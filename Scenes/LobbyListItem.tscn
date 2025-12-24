@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr2t4nfv16qhw"]
+
+[ext_resource type="Texture2D" uid="uid://b23ee5ym4gvw1" path="res://Textures/Lock.png" id="1_teeua"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bx6a0"]
+bg_color = Color(0, 0.3567855, 0.13118422, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LobbyListItem" type="Panel"]
+custom_minimum_size = Vector2(700, 90)
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_bx6a0")
+
+[node name="LobbyHbox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 9.0
+offset_right = -11.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="Name" type="Label" parent="LobbyHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Lobby name"
+
+[node name="PasswordProtected" type="TextureRect" parent="LobbyHbox"]
+layout_mode = 2
+texture = ExtResource("1_teeua")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="PlayerCount" type="Label" parent="LobbyHbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "10/10"
+
+[node name="JoinButton" type="Button" parent="LobbyHbox"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 40
+text = "Join"
