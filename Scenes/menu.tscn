@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b47yh3rjmhknp"]
+[gd_scene load_steps=17 format=3 uid="uid://b47yh3rjmhknp"]
 
 [ext_resource type="Texture2D" uid="uid://capsdbdenchr8" path="res://Textures/MenuBG.png" id="1_1rerr"]
 [ext_resource type="Script" uid="uid://dinag5uu4pvt7" path="res://Scripts/MenuScript.cs" id="1_cayip"]
+[ext_resource type="Theme" uid="uid://bsf7vp8y2gig6" path="res://Theme.tres" id="1_wwsa2"]
 [ext_resource type="Texture2D" uid="uid://ct6qbxrwqvc32" path="res://Textures/exitbutton.png" id="2_xhh6f"]
+[ext_resource type="Texture2D" uid="uid://cj75w8q5knq2h" path="res://Textures/Refresh.png" id="4_158mb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1rerr"]
 font_size = 100
@@ -35,13 +37,19 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwsa2"]
 bg_color = Color(4.813075e-07, 0.20482439, 0.15007895, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jsrd8"]
 color = Color(0, 0.49598992, 0.2525127, 1)
+thickness = 3
+
+[sub_resource type="Theme" id="Theme_wwsa2"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wbdvm"]
+color = Color(1.4439226e-07, 0.31143054, 0.14918315, 1)
 thickness = 3
 
 [node name="Menu" type="Control"]
@@ -53,6 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_wwsa2")
 script = ExtResource("1_cayip")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -62,6 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_wwsa2")
 texture = ExtResource("1_1rerr")
 expand_mode = 1
 stretch_mode = 1
@@ -72,6 +82,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 474.0
 grow_vertical = 2
+theme = ExtResource("1_wwsa2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 1
@@ -130,6 +141,7 @@ anchor_right = 1.0
 offset_left = -131.0
 offset_bottom = 68.0
 grow_horizontal = 0
+theme = ExtResource("1_wwsa2")
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -160,7 +172,18 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_158mb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cayip")
 icon_alignment = 1
 
+[node name="MouseBlocker" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+
 [node name="LobbyBrowser" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,18 +194,67 @@ offset_right = -122.0
 offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwsa2")
 
-[node name="RefreshLobbiesButton" type="Button" parent="LobbyBrowser"]
-layout_mode = 0
-offset_left = 1000.0
-offset_top = 17.0
-offset_right = 1068.0
-offset_bottom = 85.0
-text = "Refresh
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyBrowser"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 23.0
+offset_right = -32.0
+offset_bottom = 91.0
+grow_horizontal = 2
+alignment = 2
+
+[node name="RefreshLobbiesButton" type="Button" parent="LobbyBrowser/ButtonBar"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+text = "
 "
 
-[node name="LobbyBrowserVbox" type="VBoxContainer" parent="LobbyBrowser"]
+[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/RefreshLobbiesButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207031
+offset_top = 5.0
+offset_right = -0.00012207031
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_158mb")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="CloseButton" type="Button" parent="LobbyBrowser/ButtonBar"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+text = "
+"
+
+[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/CloseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207031
+offset_top = 5.0
+offset_right = -0.00012207031
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xhh6f")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MainVbox" type="VBoxContainer" parent="LobbyBrowser"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -195,28 +267,372 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="LobbyBrowserLabel" type="Label" parent="LobbyBrowser/LobbyBrowserVbox"]
+[node name="Window Label" type="Label" parent="LobbyBrowser/MainVbox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
 text = "Public Lobbies"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="LobbyBrowser/LobbyBrowserVbox"]
+[node name="Hsep" type="HSeparator" parent="LobbyBrowser/MainVbox"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyBrowser/LobbyBrowserVbox"]
+[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyBrowser/MainVbox"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
 
-[node name="LobbyListVbox" type="VBoxContainer" parent="LobbyBrowser/LobbyBrowserVbox/LobbyScrollContainer"]
+[node name="LobbyListVbox" type="VBoxContainer" parent="LobbyBrowser/MainVbox/LobbyScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 mouse_filter = 2
 
-[connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="viewLobbies"]
-[connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="createLobby"]
-[connection signal="button_down" from="LobbyBrowser/RefreshLobbiesButton" to="." method="RefreshLobbies"]
+[node name="LobbyCreator" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 122.0
+offset_top = 51.0
+offset_right = -122.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wwsa2")
+
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyCreator"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 23.0
+offset_right = -32.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme = ExtResource("1_wwsa2")
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="LobbyCreator/ButtonBar"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+theme = ExtResource("1_wwsa2")
+text = "
+"
+
+[node name="Icon" type="TextureRect" parent="LobbyCreator/ButtonBar/CloseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207031
+offset_top = 5.0
+offset_right = -0.00012207031
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+texture = ExtResource("2_xhh6f")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MainVbox" type="VBoxContainer" parent="LobbyCreator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = 28.0
+offset_right = -33.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 10
+
+[node name="Window Label" type="Label" parent="LobbyCreator/MainVbox"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Public Lobbies"
+horizontal_alignment = 1
+
+[node name="Hsep" type="HSeparator" parent="LobbyCreator/MainVbox"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LobbyCreator/MainVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="Name" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Lobby Name:"
+
+[node name="Field" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_wwsa2")
+
+[node name="Visibility" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Visibility: "
+
+[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+selected = 0
+item_count = 3
+popup/item_0/text = "Public"
+popup/item_0/id = 0
+popup/item_1/text = "Password"
+popup/item_1/id = 1
+popup/item_2/text = "Private"
+popup/item_2/id = 2
+
+[node name="PasswordField" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_wwsa2")
+placeholder_text = "Password"
+
+[node name="MaxPlayers" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Max Players: "
+
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+max_value = 10.0
+value = 10.0
+
+[node name="Hsep2" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_wbdvm")
+
+[node name="MaxCards" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Max Cards: "
+
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+max_value = 10.0
+value = 10.0
+rounded = true
+
+[node name="TimeLimit" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Turn Time Limit: "
+
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+step = 5.0
+allow_greater = true
+suffix = "s"
+
+[node name="DisabledLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_colors/font_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+text = "Disabled"
+
+[node name="RoundOrder" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Round Order: "
+
+[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+selected = 0
+item_count = 4
+popup/item_0/text = "1 → max → 1"
+popup/item_0/id = 0
+popup/item_1/text = "max → 1 → max"
+popup/item_1/id = 1
+popup/item_2/text = "1 → max"
+popup/item_2/id = 2
+popup/item_3/text = "max → 1"
+popup/item_3/id = 3
+
+[node name="RevealFirstCard" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+text = "Reveal First Card: "
+
+[node name="Field" type="CheckButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard"]
+layout_mode = 2
+
+[node name="Hsep3" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_wbdvm")
+
+[node name="CorrectPointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_colors/font_color = Color(0.26169252, 0.7299374, 3.85046e-07, 1)
+text = "Points for correct guesses"
+
+[node name="CorrectPoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+layout_mode = 2
+text = "Fixed:"
+
+[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+step = 5.0
+value = 10.0
+rounded = true
+allow_greater = true
+
+[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+layout_mode = 2
+text = "Multiplied:"
+
+[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+step = 5.0
+value = 5.0
+rounded = true
+allow_greater = true
+
+[node name="MistakePointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_colors/font_color = Color(0.5726692, 1.0227784e-06, 1.92523e-07, 1)
+text = "Deductions for incorrect guesses"
+
+[node name="MistakePoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_wwsa2")
+theme_override_constants/separation = 15
+
+[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+layout_mode = 2
+text = "Fixed:"
+
+[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+max_value = 1000.0
+step = 5.0
+rounded = true
+allow_greater = true
+
+[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+layout_mode = 2
+text = "Multiplied:"
+
+[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/buttons_width = 40
+step = 5.0
+value = 5.0
+rounded = true
+allow_greater = true
+
+[node name="Button" type="Button" parent="LobbyCreator"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -77.0
+offset_right = 252.0
+offset_bottom = -20.0
+grow_vertical = 0
+size_flags_horizontal = 0
+theme = ExtResource("1_wwsa2")
+theme_override_constants/outline_size = 0
+text = "Create Lobby"
+
+[connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="openLobbyBrowser"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="openLobbyCreator"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ExitButton" to="." method="exitGame"]
+[connection signal="pressed" from="LobbyBrowser/ButtonBar/RefreshLobbiesButton" to="." method="RefreshLobbies"]
+[connection signal="pressed" from="LobbyBrowser/ButtonBar/CloseButton" to="." method="closeLobbyBrowser"]
+[connection signal="pressed" from="LobbyCreator/ButtonBar/CloseButton" to="." method="closeLobbyCreator"]
+[connection signal="item_selected" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/Field" to="." method="onVisibilityChanged"]
+[connection signal="value_changed" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit/Field" to="." method="onTurnTimeLimitChanged"]
+[connection signal="item_selected" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder/Field" to="." method="onVisibilityChanged"]
+[connection signal="pressed" from="LobbyCreator/Button" to="." method="createLobby"]

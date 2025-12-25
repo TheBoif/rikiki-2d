@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr2t4nfv16qhw"]
+[gd_scene load_steps=4 format=3 uid="uid://dr2t4nfv16qhw"]
 
+[ext_resource type="Theme" uid="uid://bsf7vp8y2gig6" path="res://Theme.tres" id="1_ghyjj"]
 [ext_resource type="Texture2D" uid="uid://b23ee5ym4gvw1" path="res://Textures/Lock.png" id="1_teeua"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bx6a0"]
@@ -12,6 +13,8 @@ corner_radius_bottom_left = 5
 [node name="LobbyListItem" type="Panel"]
 custom_minimum_size = Vector2(700, 90)
 size_flags_vertical = 4
+mouse_filter = 1
+theme = ExtResource("1_ghyjj")
 theme_override_styles/panel = SubResource("StyleBoxFlat_bx6a0")
 
 [node name="LobbyHbox" type="HBoxContainer" parent="."]
@@ -25,29 +28,31 @@ offset_right = -11.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ghyjj")
 theme_override_constants/separation = 15
 alignment = 2
 
 [node name="Name" type="Label" parent="LobbyHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("1_ghyjj")
 text = "Lobby name"
 
 [node name="PasswordProtected" type="TextureRect" parent="LobbyHbox"]
 layout_mode = 2
+theme = ExtResource("1_ghyjj")
 texture = ExtResource("1_teeua")
 expand_mode = 3
 stretch_mode = 4
 
 [node name="PlayerCount" type="Label" parent="LobbyHbox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("1_ghyjj")
 text = "10/10"
 
 [node name="JoinButton" type="Button" parent="LobbyHbox"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("1_ghyjj")
 text = "Join"

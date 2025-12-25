@@ -3,9 +3,11 @@ using System;
 
 public partial class GlobalScript : Node
 {
-    public static GlobalScript Instance { get; private set; }
+	public static GlobalScript Instance { get; private set; }
 
 	public ENetMultiplayerPeer peer;
+	public String playerName;
+	public Color playerColor;
 	
 	public override void _Ready()
 	{
