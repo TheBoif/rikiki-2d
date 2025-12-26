@@ -7,8 +7,6 @@ public partial class GlobalScript : Node
 
 	public ENetMultiplayerPeer peer;
 	public String playerName;
-	public Color playerColor;
-	
 	public override void _Ready()
 	{
 		Instance = this;

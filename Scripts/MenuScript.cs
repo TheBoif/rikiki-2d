@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Security.Cryptography;
 
 public partial class MenuScript : Node
@@ -8,7 +10,8 @@ public partial class MenuScript : Node
 	Control MouseBlocker;
 	Control LobbyBrowser;
 	Control LobbyCreator;
-	Control PasswordField;
+	Control PasswordPrompt;
+	Control CreatePasswordField;
 
 	public override void _Ready()
 	{
@@ -16,6 +19,8 @@ public partial class MenuScript : Node
 		MouseBlocker = GetNode<Control>("MouseBlocker");
 		LobbyBrowser = GetNode<Control>("LobbyBrowser");
 		LobbyCreator = GetNode<Control>("LobbyCreator");
+		PasswordPrompt = GetNode<Control>("PasswordPrompt");
+		CreatePasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox");
 	}
 
@@ -26,6 +31,12 @@ public partial class MenuScript : Node
 			GetTree().ChangeSceneToFile("res://Scenes/ServerScene.tscn");
 		}
 	}
+
+	public void joinLobby(long lobbyID, string password = "")
+	{
+		GD.Print("Joining Lobby: " + lobbyID + " with password: " + password);
+	}
+
 	#region UI Button Methods
 	public void exitGame()
 	{
@@ -40,6 +51,36 @@ public partial class MenuScript : Node
 		MouseBlocker.Visible = true;
 		LobbyBrowser.Visible = true;
 		RefreshLobbies();
+
+		HBoxContainer ColorRow1 = GetNode<HBoxContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorRow1");
+		HBoxContainer ColorRow2 = GetNode<HBoxContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorRow2");
+		int i = 0;
+		foreach(var node in ColorRow1.GetChildren().Concat(ColorRow2.GetChildren()))
+		{
+			Button button = node.GetChild(0) as Button;
+			StyleBoxFlat normal = (StyleBoxFlat)button.GetThemeStylebox("normal");
+			StyleBoxFlat pressed = (StyleBoxFlat)button.GetThemeStylebox("pressed");
+			StyleBoxFlat hover = (StyleBoxFlat)button.GetThemeStylebox("hover");
+			StyleBoxFlat disabled = (StyleBoxFlat)button.GetThemeStylebox("disabled");
+			normal.SetCornerRadiusAll(20);
+			pressed.SetCornerRadiusAll(20);
+			hover.SetCornerRadiusAll(20);
+			disabled.SetCornerRadiusAll(20);
+			normal.BgColor = Functions.PlayerColors[i];
+			pressed.BgColor = Functions.PlayerColors[i].Darkened(0.4f);
+			hover.BgColor = Functions.PlayerColors[i].Darkened(0.2f);
+			disabled.BgColor = Functions.PlayerColors[i].Darkened(0.6f);
+			button.AddThemeStyleboxOverride("normal", normal);
+			button.AddThemeStyleboxOverride("pressed", pressed);
+			button.AddThemeStyleboxOverride("hover", hover);
+			button.AddThemeStyleboxOverride("disabled", disabled);
+			if(i%2 == 1)
+			{
+				button.Disabled = true;
+				button.Icon = GD.Load<Texture2D>("res://Textures/exitbutton.png");
+			}
+			i++;
+		}
 	}
 	public void closeLobbyBrowser()
 	{
@@ -58,17 +99,27 @@ public partial class MenuScript : Node
 		LobbyCreator.Visible = false;
 	}
 
+	public void openPasswordPrompt(long lobbyID)
+	{
+		PasswordPrompt.Visible = true;
+		PasswordPrompt.GetNode<Button>("Panel/MainVbox/Confirm").Pressed += () => joinLobby(lobbyID, PasswordPrompt.GetNode<LineEdit>("Panel/MainVbox/Field").Text);
+	}
+
+	public void closePasswordPrompt()
+	{
+		PasswordPrompt.Visible = false;
+	}
+
 	#region Lobby Creator
 	public void onVisibilityChanged(int index)
 	{
-		PasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		if(index == 1) //Protected
 		{
-			PasswordField.Visible = true;
+			CreatePasswordField.Visible = true;
 		}
 		else
 		{
-			PasswordField.Visible = false;
+			CreatePasswordField.Visible = false;
 		}
 	}
 
@@ -100,7 +151,7 @@ public partial class MenuScript : Node
             Convert.ToInt32(optionsContainer.GetNode<SpinBox>("MistakePoints/Fix").Value),
             Convert.ToInt32(optionsContainer.GetNode<SpinBox>("MistakePoints/Multi").Value),
         ];
-        LobbyScript.Instance.RpcId(1, "lobbyCreateReq", lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues, GlobalScript.Instance.playerName, GlobalScript.Instance.playerColor, GlobalScript.Instance.peer.GetUniqueId());
+        LobbyScript.Instance.RpcId(1, "lobbyCreateReq", lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues, GlobalScript.Instance.playerName, GlobalScript.Instance.peer.GetUniqueId());
 		closeLobbyCreator();
 	}
 	#endregion

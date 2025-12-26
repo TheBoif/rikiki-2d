@@ -7,9 +7,11 @@ public partial class LobbyScript : Node
 	public VBoxContainer LobbyListContainer;
 	public static LobbyScript Instance { get; private set; }
 	public PackedScene LobbyListItem = GD.Load<PackedScene>("res://Scenes/LobbyListItem.tscn");
+	MenuScript menuScript;
 	int i = 0;
 	public override void _Ready()
 	{
+		menuScript = GetTree().Root.GetNode("Menu") as MenuScript;
 		Instance = this;
 	}
 
@@ -19,9 +21,9 @@ public partial class LobbyScript : Node
 	#region Server Methods
 	//Server run, sent by players
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-	public void lobbyCreateReq(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues, string hostName, Color hostColor, int hostPeerUID)
+	public void lobbyCreateReq(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues, string hostName, int hostPeerUID)
 	{
-		LobbyPlayer hostPlayer = new LobbyPlayer(){name=hostName, color=hostColor, peerUID=hostPeerUID};
+		LobbyPlayer hostPlayer = new LobbyPlayer(){name=hostName, peerUID=hostPeerUID};
 		LobbyProperties newLobby = new LobbyProperties(lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues);
 
 		long id = DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -85,6 +87,60 @@ public partial class LobbyScript : Node
 		}
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
+	public void lobbyJoinReq(int joiningUID, long lobbyID, string password)
+	{
+		if(!lobbies.ContainsKey(lobbyID))
+		{
+			RpcId(joiningUID, "lobbyJoinResp", "badId");
+			return;
+		}
+		if(lobbies[lobbyID].maxPlayers >= lobbies[lobbyID].players.Count)
+		{
+			RpcId(joiningUID, "lobbyJoinResp", "full");
+			return;
+		}
+		if(lobbies[lobbyID].password != "")
+		{
+			if(Functions.HashString(password) == lobbies[lobbyID].password)
+			{
+				RpcId(joiningUID, "lobbyJoinResp", "success");
+			}
+			else
+			{
+				RpcId(joiningUID, "lobbyJoinResp", "badPassword");
+				return;
+			}
+		}
+		else
+		{
+			RpcId(joiningUID, "lobbyJoinResp", "success");
+		}
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
+	public void lobbyJoinResp(String result)
+	{
+		switch(result)
+		{
+			case "success":
+				GD.Print("Joined lobby successfully.");
+				break;
+			case "badId":
+				GD.Print("Failed to join lobby: Lobby does not exist.");
+				break;
+			case "full":
+				GD.Print("Failed to join lobby: Lobby is full.");
+				break;
+			case "badPassword":
+				GD.Print("Failed to join lobby: Incorrect password.");
+				break;
+			default:
+				GD.Print("Failed to join lobby: Unknown error.");
+				break;
+		}
+	}
+
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
 	public void lobbyClosedResp()
 	{
@@ -116,6 +172,15 @@ public partial class LobbyScript : Node
 			newLobbyListItem.GetNode<Label>("LobbyHbox/Name").Text = lobbyNames[i];
 			newLobbyListItem.GetNode<Label>("LobbyHbox/PlayerCount").Text = playerCounts[i];
 			newLobbyListItem.GetNode<TextureRect>("LobbyHbox/PasswordProtected").Visible = passwordProtected[i] == 1;
+			long lobbyID = lobbyIDs[i];
+			if(passwordProtected[i] == 1)
+			{
+				newLobbyListItem.GetNode<Button>("LobbyHbox/JoinButton").Pressed += () => menuScript.openPasswordPrompt(lobbyID);
+			}
+			else
+			{
+				newLobbyListItem.GetNode<Button>("LobbyHbox/JoinButton").Pressed += () => menuScript.joinLobby(lobbyID);
+			}
 			LobbyListContainer.AddChild(newLobbyListItem);
 		}
 	}

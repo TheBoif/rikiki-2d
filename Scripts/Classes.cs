@@ -124,5 +124,21 @@ public static class Functions
 			return Convert.ToBase64String(hash);
 		}
 	}
+
+	public static Color[] PlayerColors = new Color[]
+	{
+		new Color("dd0900",1), //Red
+		new Color("0042ff",1), //Blue
+		new Color("006816",1), //Green
+		new Color("ff4edc",1), //Pink
+		new Color("ff6a00",1), //Orange
+		new Color("ffd800",1), //Yellow
+		new Color("333333",1), //Black
+		new Color("d3d3d3",1), //White
+		new Color("8200bf",1), //Purple
+		new Color("772f00",1), //Brown
+		new Color("00e8ff",1), //Cyan
+		new Color("00ff3a",1), //Lime
+	};
 }
 #endregion
