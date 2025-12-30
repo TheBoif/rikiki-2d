@@ -43,14 +43,51 @@ public partial class MenuScript : Node
 	public void joinLobby(long lobbyID, string password = "")
 	{
 		PopupMessage("Joining Lobby", "Attempting to join lobby...");
-		LobbyScript.Instance.RpcId(1, "lobbyJoinReq", GlobalScript.Instance.peer.GetUniqueId(), lobbyID, password);
+		LobbyScript.Instance.RpcId(1, "lobbyJoinReq", GlobalScript.Instance.peer.GetUniqueId(), lobbyID, password, GlobalScript.Instance.playerName);
 		closePasswordPrompt();
 	}
 
 	public void lobbyJoinedResp()
 	{
-		//called when a lobby is joined
+		LobbyView.Visible = true;
 		PopupMessage("Lobby Joined", "Successfully joined the lobby.");
+		LobbyScript.Instance.RpcId(1, "broadcastPlayerListUpdate", LobbyScript.Instance.properties.LobbyID);
+	}
+
+	public void lobbyCreatedResp()
+	{
+		LobbyView.Visible = true;
+		PopupMessage("Lobby Created", "Successfully created lobby.");
+		LobbyScript.Instance.RpcId(1, "broadcastPlayerListUpdate", LobbyScript.Instance.properties.LobbyID);
+	}
+
+	public void openColorSelectPanel()
+	{
+		GridContainer colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
+		int i = 0;
+		foreach(var node in colorGrid.GetChildren())
+		{
+			Button button = node.GetChild(0) as Button;
+			StyleBoxFlat normal = (StyleBoxFlat)button.GetThemeStylebox("normal");
+			StyleBoxFlat a = new StyleBoxFlat();
+			StyleBoxFlat pressed = (StyleBoxFlat)button.GetThemeStylebox("pressed");
+			StyleBoxFlat hover = (StyleBoxFlat)button.GetThemeStylebox("hover");
+			StyleBoxFlat disabled = (StyleBoxFlat)button.GetThemeStylebox("disabled");
+			normal.SetCornerRadiusAll(20);
+			pressed.SetCornerRadiusAll(20);
+			hover.SetCornerRadiusAll(20);
+			disabled.SetCornerRadiusAll(20);
+			normal.BgColor = Functions.PlayerColors[i];
+			pressed.BgColor = Functions.PlayerColors[i].Darkened(0.4f);
+			hover.BgColor = Functions.PlayerColors[i].Darkened(0.2f);
+			disabled.BgColor = Functions.PlayerColors[i].Darkened(0.6f);
+			button.AddThemeStyleboxOverride("normal", normal);
+			button.AddThemeStyleboxOverride("pressed", pressed);
+			button.AddThemeStyleboxOverride("hover", hover);
+			button.AddThemeStyleboxOverride("disabled", disabled);
+			i++;
+		}
+		colorGrid.Visible = true;
 	}
 
 	public void lobbyLeftResp(string reason = "Left")
@@ -79,36 +116,6 @@ public partial class MenuScript : Node
 		MouseBlocker.Visible = true;
 		LobbyBrowser.Visible = true;
 		RefreshLobbies();
-
-		GridContainer colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
-		int i = 0;
-		foreach(var node in colorGrid.GetChildren())
-		{
-			Button button = node.GetChild(0) as Button;
-			StyleBoxFlat normal = (StyleBoxFlat)button.GetThemeStylebox("normal");
-			StyleBoxFlat a = new StyleBoxFlat();
-			StyleBoxFlat pressed = (StyleBoxFlat)button.GetThemeStylebox("pressed");
-			StyleBoxFlat hover = (StyleBoxFlat)button.GetThemeStylebox("hover");
-			StyleBoxFlat disabled = (StyleBoxFlat)button.GetThemeStylebox("disabled");
-			normal.SetCornerRadiusAll(20);
-			pressed.SetCornerRadiusAll(20);
-			hover.SetCornerRadiusAll(20);
-			disabled.SetCornerRadiusAll(20);
-			normal.BgColor = Functions.PlayerColors[i];
-			pressed.BgColor = Functions.PlayerColors[i].Darkened(0.4f);
-			hover.BgColor = Functions.PlayerColors[i].Darkened(0.2f);
-			disabled.BgColor = Functions.PlayerColors[i].Darkened(0.6f);
-			button.AddThemeStyleboxOverride("normal", normal);
-			button.AddThemeStyleboxOverride("pressed", pressed);
-			button.AddThemeStyleboxOverride("hover", hover);
-			button.AddThemeStyleboxOverride("disabled", disabled);
-			/*if(i%2 == 1)
-			{
-				button.Disabled = true;
-				button.Icon = GD.Load<Texture2D>("res://Textures/exitbutton.png");
-			}*/
-			i++;
-		}
 	}
 	public void closeLobbyBrowser()
 	{

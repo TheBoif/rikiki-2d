@@ -6,8 +6,7 @@ public partial class GlobalScript : Node
 	public static GlobalScript Instance { get; private set; }
 
 	public ENetMultiplayerPeer peer;
-	public String playerName;
-	public long currentLobbyID = -1;
+	public String playerName = "Phuc";
 	public override void _Ready()
 	{
 		Instance = this;
