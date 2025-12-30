@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1dmodcp4ix62"]
+
+[ext_resource type="Theme" uid="uid://bsf7vp8y2gig6" path="res://Theme.tres" id="1_ut5e7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hph2t"]
+bg_color = Color(0.8862616, 0.88626146, 0.8862615, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn0m3"]
+bg_color = Color(0.43904907, 0.43904915, 0.43904895, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+expand_margin_left = 30.0
+expand_margin_top = 20.0
+expand_margin_right = 11.0
+expand_margin_bottom = 21.0
+
+[node name="PlayerListItem" type="Panel"]
+custom_minimum_size = Vector2(700, 90)
+theme_override_styles/panel = SubResource("StyleBoxFlat_hph2t")
+
+[node name="PlayerHbox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 9.0
+offset_right = -11.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ut5e7")
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="Name" type="Label" parent="PlayerHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ut5e7")
+theme_override_constants/outline_size = 15
+text = "Lobby name"
+
+[node name="ReadyIndicator" type="Label" parent="PlayerHbox"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("1_ut5e7")
+theme_override_colors/font_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_outline_color = Color(1.2874976e-06, 0.4538483, 1.92523e-07, 1)
+theme_override_constants/outline_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_dn0m3")
+text = "Ready"

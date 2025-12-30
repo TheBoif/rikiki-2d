@@ -41,10 +41,18 @@ public class LobbyPlayer
 	public string name;
 	public Color color;
 	public int peerUID;
+	public bool isReady = false;
 	public int currentGuess = 0;
 	public int currentHits = 0;
 	public int score = 0;
 	List<Card> hand = new List<Card>();
+
+	public LobbyPlayer(string name, Color color, int peerUID)
+	{
+		this.name = name;
+		this.color = color;
+		this.peerUID = peerUID;
+	}
 }
 
 public class LobbyProperties

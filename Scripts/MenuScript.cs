@@ -6,12 +6,15 @@ using System.Security.Cryptography;
 
 public partial class MenuScript : Node
 {
-	//Menu refrences
+	#region Menu refrences
 	Control MouseBlocker;
 	Control LobbyBrowser;
 	Control LobbyCreator;
 	Control PasswordPrompt;
 	Control CreatePasswordField;
+	Control PopupPanel;
+	Control LobbyView;
+	Control LobbyPlayerList;
 
 	public override void _Ready()
 	{
@@ -20,9 +23,14 @@ public partial class MenuScript : Node
 		LobbyBrowser = GetNode<Control>("LobbyBrowser");
 		LobbyCreator = GetNode<Control>("LobbyCreator");
 		PasswordPrompt = GetNode<Control>("PasswordPrompt");
+		LobbyView = GetNode<Control>("LobbyView");
+		PopupPanel = GetNode<Control>("PopupPanel");
 		CreatePasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox");
+		LobbyScript.Instance.PlayerListContainer = GetNode<VBoxContainer>("LobbyView/MainVbox/LobbyScrollContainer/PlayerListVbox");
+		PopupPanel.GetNode<Button>("Panel/MainVbox/OkButton").Pressed += () => PopupPanel.Visible = false;
 	}
+	#endregion
 
 	public override void _Process(double delta)
 	{
@@ -34,7 +42,27 @@ public partial class MenuScript : Node
 
 	public void joinLobby(long lobbyID, string password = "")
 	{
-		GD.Print("Joining Lobby: " + lobbyID + " with password: " + password);
+		PopupMessage("Joining Lobby", "Attempting to join lobby...");
+		LobbyScript.Instance.RpcId(1, "lobbyJoinReq", GlobalScript.Instance.peer.GetUniqueId(), lobbyID, password);
+		closePasswordPrompt();
+	}
+
+	public void lobbyJoinedResp()
+	{
+		//called when a lobby is joined
+		PopupMessage("Lobby Joined", "Successfully joined the lobby.");
+	}
+
+	public void lobbyLeftResp(string reason = "Left")
+	{
+		//called when a lobby is left
+	}
+
+	public void PopupMessage(string header, string message)
+	{
+		PopupPanel.GetNode<Label>("Panel/MainVbox/Header").Text = header;
+		PopupPanel.GetNode<Label>("Panel/MainVbox/Message").Text = message;
+		PopupPanel.Visible = true;
 	}
 
 	#region UI Button Methods
@@ -52,13 +80,13 @@ public partial class MenuScript : Node
 		LobbyBrowser.Visible = true;
 		RefreshLobbies();
 
-		HBoxContainer ColorRow1 = GetNode<HBoxContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorRow1");
-		HBoxContainer ColorRow2 = GetNode<HBoxContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorRow2");
+		GridContainer colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
 		int i = 0;
-		foreach(var node in ColorRow1.GetChildren().Concat(ColorRow2.GetChildren()))
+		foreach(var node in colorGrid.GetChildren())
 		{
 			Button button = node.GetChild(0) as Button;
 			StyleBoxFlat normal = (StyleBoxFlat)button.GetThemeStylebox("normal");
+			StyleBoxFlat a = new StyleBoxFlat();
 			StyleBoxFlat pressed = (StyleBoxFlat)button.GetThemeStylebox("pressed");
 			StyleBoxFlat hover = (StyleBoxFlat)button.GetThemeStylebox("hover");
 			StyleBoxFlat disabled = (StyleBoxFlat)button.GetThemeStylebox("disabled");
@@ -74,11 +102,11 @@ public partial class MenuScript : Node
 			button.AddThemeStyleboxOverride("pressed", pressed);
 			button.AddThemeStyleboxOverride("hover", hover);
 			button.AddThemeStyleboxOverride("disabled", disabled);
-			if(i%2 == 1)
+			/*if(i%2 == 1)
 			{
 				button.Disabled = true;
 				button.Icon = GD.Load<Texture2D>("res://Textures/exitbutton.png");
-			}
+			}*/
 			i++;
 		}
 	}
@@ -155,7 +183,5 @@ public partial class MenuScript : Node
 		closeLobbyCreator();
 	}
 	#endregion
-
-	
 	#endregion
 }
