@@ -1,0 +1,1 @@
+./Rikiki2Dconsole.exe dedicated_server

@@ -15,6 +15,8 @@ public partial class MenuScript : Node
 	Control PopupPanel;
 	Control LobbyView;
 	Control LobbyPlayerList;
+	Control startGamePrompt;
+	public GridContainer colorGrid;
 
 	public override void _Ready()
 	{
@@ -25,9 +27,11 @@ public partial class MenuScript : Node
 		PasswordPrompt = GetNode<Control>("PasswordPrompt");
 		LobbyView = GetNode<Control>("LobbyView");
 		PopupPanel = GetNode<Control>("PopupPanel");
+		startGamePrompt = GetNode<Control>("StartGamePrompt");
 		CreatePasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox");
 		LobbyScript.Instance.PlayerListContainer = GetNode<VBoxContainer>("LobbyView/MainVbox/LobbyScrollContainer/PlayerListVbox");
+		colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
 		PopupPanel.GetNode<Button>("Panel/MainVbox/OkButton").Pressed += () => PopupPanel.Visible = false;
 	}
 	#endregion
@@ -42,6 +46,7 @@ public partial class MenuScript : Node
 
 	public void joinLobby(long lobbyID, string password = "")
 	{
+		closeLobbyBrowser();
 		PopupMessage("Joining Lobby", "Attempting to join lobby...");
 		LobbyScript.Instance.RpcId(1, "lobbyJoinReq", GlobalScript.Instance.peer.GetUniqueId(), lobbyID, password, GlobalScript.Instance.playerName);
 		closePasswordPrompt();
@@ -50,23 +55,23 @@ public partial class MenuScript : Node
 	public void lobbyJoinedResp()
 	{
 		LobbyView.Visible = true;
-		PopupMessage("Lobby Joined", "Successfully joined the lobby.");
 		LobbyScript.Instance.RpcId(1, "broadcastPlayerListUpdate", LobbyScript.Instance.properties.LobbyID);
+		openColorSelectPanel();
 	}
 
 	public void lobbyCreatedResp()
 	{
 		LobbyView.Visible = true;
-		PopupMessage("Lobby Created", "Successfully created lobby.");
 		LobbyScript.Instance.RpcId(1, "broadcastPlayerListUpdate", LobbyScript.Instance.properties.LobbyID);
+		openColorSelectPanel();
 	}
 
 	public void openColorSelectPanel()
 	{
-		GridContainer colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
 		int i = 0;
 		foreach(var node in colorGrid.GetChildren())
 		{
+			MouseBlocker.Visible = true;
 			Button button = node.GetChild(0) as Button;
 			StyleBoxFlat normal = (StyleBoxFlat)button.GetThemeStylebox("normal");
 			StyleBoxFlat a = new StyleBoxFlat();
@@ -85,9 +90,11 @@ public partial class MenuScript : Node
 			button.AddThemeStyleboxOverride("pressed", pressed);
 			button.AddThemeStyleboxOverride("hover", hover);
 			button.AddThemeStyleboxOverride("disabled", disabled);
+			int temp = i;
+			button.Pressed += () => {LobbyScript.Instance.RpcId(1, "pickColorReq", GlobalScript.Instance.peer.GetUniqueId(), LobbyScript.Instance.properties.LobbyID, temp); MouseBlocker.Visible = false;};
 			i++;
 		}
-		colorGrid.Visible = true;
+		GetNode<PanelContainer>("ColorSelectPanel").Visible = true;
 	}
 
 	public void lobbyLeftResp(string reason = "Left")
@@ -143,6 +150,40 @@ public partial class MenuScript : Node
 	public void closePasswordPrompt()
 	{
 		PasswordPrompt.Visible = false;
+	}
+
+	public void readyButtonToggled(bool pressed)
+	{
+		LobbyScript.Instance.RpcId(1, "readyStateChangedReq", GlobalScript.Instance.peer.GetUniqueId(), LobbyScript.Instance.properties.LobbyID, pressed);
+	}
+
+	public void startGameButton()
+	{
+		bool allReady = true;
+		foreach(var peer in LobbyScript.Instance.properties.players)
+		{
+			if(!peer.isReady)
+			{
+				allReady = false;
+				startGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?\nNot all players are ready!";
+				break;
+			}
+		}
+		if(allReady)
+		{
+			startGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?";
+		}
+		startGamePrompt.Visible = true;
+	}
+
+	public void closeStartPrompt()
+	{
+		startGamePrompt.Visible = false;
+	}
+
+	public void ConfirmStart()
+	{
+		LobbyScript.Instance.RpcId(1, "startGameReq", GlobalScript.Instance.peer.GetUniqueId(), LobbyScript.Instance.properties.LobbyID);
 	}
 
 	#region Lobby Creator

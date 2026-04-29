@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1dmodcp4ix62"]
+[gd_scene load_steps=5 format=3 uid="uid://c1dmodcp4ix62"]
 
 [ext_resource type="Texture2D" uid="uid://brtkcjtwhhkbb" path="res://Textures/Stripe.png" id="1_04l8a"]
 [ext_resource type="Theme" uid="uid://bsf7vp8y2gig6" path="res://Theme.tres" id="1_ut5e7"]
@@ -25,17 +25,10 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn0m3"]
-bg_color = Color(0.43904907, 0.43904915, 0.43904895, 1)
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-expand_margin_left = 30.0
-expand_margin_top = 20.0
-expand_margin_right = 11.0
-expand_margin_bottom = 21.0
-
 [node name="PlayerListItem" type="Panel"]
 custom_minimum_size = Vector2(700, 90)
+offset_right = 700.0
+offset_bottom = 90.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_hjtck")
 
 [node name="Border" type="Panel" parent="."]
@@ -54,7 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = 9.0
-offset_right = -11.0
+offset_right = -24.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -70,12 +63,11 @@ theme_override_constants/outline_size = 15
 text = "Player name"
 
 [node name="ReadyIndicator" type="Label" parent="PlayerHbox"]
-visible = false
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(105, 0)
 layout_mode = 2
 theme = ExtResource("1_ut5e7")
-theme_override_colors/font_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
-theme_override_colors/font_outline_color = Color(1.2874976e-06, 0.4538483, 1.92523e-07, 1)
+theme_override_colors/font_color = Color(0, 0.7979482, 0.058993496, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_dn0m3")
 text = "Ready"
+horizontal_alignment = 1

@@ -27,7 +27,7 @@ public partial class LobbyScript : Node
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
 	public void lobbyCreateReq(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues, string hostName, int hostPeerUID)
 	{
-		LobbyPlayer hostPlayer = new LobbyPlayer(hostName, new Color(0,0,0), hostPeerUID);
+		LobbyPlayer hostPlayer = new LobbyPlayer(hostName, -1, hostPeerUID);
 		LobbyProperties newLobby = new LobbyProperties(lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues);
 
 		long id = DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -69,7 +69,7 @@ public partial class LobbyScript : Node
 		}
 
 		RpcId(joiningUID, "lobbyJoinResp", "success", lobbyID, lobbies[lobbyID].lobbyName, (int)lobbies[lobbyID].visibility, lobbies[lobbyID].password, lobbies[lobbyID].maxPlayers, lobbies[lobbyID].maxCards, lobbies[lobbyID].timeLimit, (int)lobbies[lobbyID].roundOrder, lobbies[lobbyID].revealCards, lobbies[lobbyID].pointValues);
-		lobbies[lobbyID].players.Add(new LobbyPlayer(playerName, new Color(0,0,0), joiningUID));
+		lobbies[lobbyID].players.Add(new LobbyPlayer(playerName, -1, joiningUID));
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
@@ -103,25 +103,58 @@ public partial class LobbyScript : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
+	public void pickColorReq(int peerUID, long lobbyID, int colorIndex)
+	{
+		foreach(var player in lobbies[lobbyID].players)
+		{
+			if(player.colorIndex == colorIndex)
+			{
+				broadcastPlayerListUpdate(lobbyID);
+				return;
+			}
+		}
+
+		lobbies[lobbyID].players.Find(p => p.peerUID == peerUID).colorIndex = colorIndex;
+		broadcastPlayerListUpdate(lobbyID);
+		RpcId(peerUID, "pickColorResp");
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
+	public void readyStateChangedReq(int peerUID, long lobbyID, bool isReady)
+	{
+		lobbies[lobbyID].players.Find(p => p.peerUID == peerUID).isReady = isReady;
+		broadcastPlayerListUpdate(lobbyID);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
+	public void startGameReq(int peerUID, long lobbyID)
+	{
+		foreach(var peer in lobbies[lobbyID].players)
+		{
+			RpcId(peer.peerUID, "startGameResp");
+		}
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
 	public void broadcastPlayerListUpdate(long lobbyID)
 	{
 		List<String> playerNames = new List<String>();
-		List<Color> playerColors = new List<Color>();
+		List<int> playerColorIndeces = new List<int>();
 		List<int> playerUIDs = new List<int>();
 		List<int> readyStatus = new List<int>();
 		foreach(var peer in lobbies[lobbyID].players)
 		{
 			playerNames.Add(peer.name);
-			playerColors.Add(peer.color);
+			playerColorIndeces.Add(peer.colorIndex);
 			playerUIDs.Add(peer.peerUID);
 			readyStatus.Add(peer.isReady ? 1 : 0);
 		}
 		foreach(var peer in lobbies[lobbyID].players)
 		{
-			RpcId(peer.peerUID, "updatePlayerList", playerNames.ToArray(), playerColors.ToArray(), playerUIDs.ToArray(), readyStatus.ToArray());
+			RpcId(peer.peerUID, "updatePlayerList", playerNames.ToArray(), playerColorIndeces.ToArray(), playerUIDs.ToArray(), readyStatus.ToArray());
 		}
 	}
-	
+
 	#endregion
 	#region Player Methods
 	//Player run, sent by server
@@ -204,7 +237,7 @@ public partial class LobbyScript : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void updatePlayerList(String[] playerNames, Color[] playerColors, int[] peerUIDs, int[] readyStatuses)
+	public void updatePlayerList(String[] playerNames, int[] playerColorIndeces, int[] peerUIDs, int[] readyStatuses)
 	{
 		if(properties == null)
 		{
@@ -220,13 +253,58 @@ public partial class LobbyScript : Node
 
 		for(int i = 0; i < playerNames.Length; i++)
 		{
-			properties.players.Add(new LobbyPlayer(playerNames[i], playerColors[i], peerUIDs[i]));
+			properties.players.Add(new LobbyPlayer(playerNames[i], playerColorIndeces[i], peerUIDs[i]));
+			properties.players[i].isReady = readyStatuses[i] == 1;
 			Node playerListItem = PlayerListItem.Instantiate();
 			playerListItem.GetNode<Label>("PlayerHbox/Name").Text = playerNames[i];
-			//((StyleBoxFlat)((Panel)playerListItem).GetThemeStylebox("Panel")).BgColor = playerColors[i];
-			playerListItem.GetNode<Label>("PlayerHbox/ReadyIndicator").Visible = readyStatuses[i] == 1;
+			if(playerColorIndeces[i] != -1)
+			{
+				playerListItem.GetNode<Control>("Border").Visible = false;
+				StyleBoxFlat playerBG = new StyleBoxFlat();
+				playerBG.BgColor = Functions.PlayerColors[playerColorIndeces[i]].Darkened(0.2f);
+				playerBG.SetCornerRadiusAll(5);
+				((Panel)playerListItem).AddThemeStyleboxOverride("panel", playerBG);
+
+				Button colorbtn =  menuScript.colorGrid.GetChild(playerColorIndeces[i]).GetChild(0) as Button;
+				colorbtn.Disabled = true;
+				colorbtn.Icon = GD.Load<Texture2D>("res://Textures/exitbutton.png");
+			}
+			if(i == 0)
+			{
+				properties.players[i].isReady = true;
+				Label readyIndicator = playerListItem.GetNode<Label>("PlayerHbox/ReadyIndicator");
+				readyIndicator.Text = "Host";
+				readyIndicator.AddThemeColorOverride("font_color", Colors.White);
+				readyIndicator.Visible = true;
+				if(GlobalScript.Instance.peer.GetUniqueId() == peerUIDs[i])
+				{
+					menuScript.GetNode<Button>("LobbyView/MainVbox/ReadyButton").Visible = false;
+					menuScript.GetNode<Button>("LobbyView/MainVbox/StartButton").Visible = true;
+				}
+			}
+			else
+			{
+				if(GlobalScript.Instance.peer.GetUniqueId() == peerUIDs[i])
+				{
+					menuScript.GetNode<Button>("LobbyView/MainVbox/ReadyButton").Visible = true;
+					menuScript.GetNode<Button>("LobbyView/MainVbox/StartButton").Visible = false;
+				}
+				playerListItem.GetNode<Label>("PlayerHbox/ReadyIndicator").Visible = readyStatuses[i] != 0;
+			}
 			PlayerListContainer.AddChild(playerListItem);
 		}
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
+	public void pickColorResp()
+	{
+		menuScript.GetNode<PanelContainer>("ColorSelectPanel").Visible = false;
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
+	public void startGameResp()
+	{
+		GetTree().ChangeSceneToFile("res://Scenes/GameScene.tscn");
 	}
 
 	#endregion

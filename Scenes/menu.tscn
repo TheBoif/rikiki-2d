@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://b47yh3rjmhknp"]
+[gd_scene load_steps=80 format=3 uid="uid://b47yh3rjmhknp"]
 
 [ext_resource type="Texture2D" uid="uid://capsdbdenchr8" path="res://Textures/MenuBG.png" id="1_1rerr"]
 [ext_resource type="Script" uid="uid://dinag5uu4pvt7" path="res://Scripts/MenuScript.cs" id="1_cayip"]
@@ -19,16 +19,16 @@ font_size = 100
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_158mb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cayip"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhh6f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhh6f"]
+bg_color = Color(0.8288101, 2.7193873e-06, 5.7756904e-07, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhh6f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhh6f"]
-bg_color = Color(0.8288101, 2.7193873e-06, 5.7756904e-07, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cayip"]
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -43,27 +43,14 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cayip"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwsa2"]
-bg_color = Color(4.813075e-07, 0.20482439, 0.15007895, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_jsrd8"]
-color = Color(0, 0.49598992, 0.2525127, 1)
-thickness = 3
-
-[sub_resource type="Theme" id="Theme_wwsa2"]
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_wbdvm"]
-color = Color(1.4439226e-07, 0.31143054, 0.14918315, 1)
-thickness = 3
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oc4uc"]
 bg_color = Color(4.813075e-07, 0.20482439, 0.15007895, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3rjx"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jsrd8"]
+color = Color(0, 0.49598992, 0.2525127, 1)
+thickness = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hph2t"]
 content_margin_left = 4.0
@@ -82,12 +69,73 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
+bg_color = Color(3.1284987e-06, 0.7543012, 4.235506e-06, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyk3f"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0.31098977, 0.25956646, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8nev"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.4318654, 1, 0.4006564, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwrfa"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0, 1, 0, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvyb0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22349137, 0.9999998, 0.20155793, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwsa2"]
+bg_color = Color(4.813075e-07, 0.20482439, 0.15007895, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_wwsa2"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wbdvm"]
+color = Color(1.4439226e-07, 0.31143054, 0.14918315, 1)
+thickness = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_je088"]
 bg_color = Color(0, 0.2901961, 0.09803922, 1)
@@ -709,7 +757,7 @@ stretch_mode = 1
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_wbdvm")
-position = Vector2(900, -220)
+position = Vector2(900, -400)
 emitting = false
 amount = 20
 texture = ExtResource("4_jsrd8")
@@ -810,7 +858,6 @@ alignment = 2
 [node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(58, 58)
 layout_mode = 2
-theme_override_styles/pressed = SubResource("StyleBoxFlat_cayip")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xhh6f")
 icon = ExtResource("7_wbdvm")
 icon_alignment = 1
@@ -826,6 +873,107 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_158mb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cayip")
 icon_alignment = 1
 expand_icon = true
+
+[node name="LobbyView" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_oc4uc")
+
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyView"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 11.0
+offset_right = -32.0
+offset_bottom = 79.0
+grow_horizontal = 2
+
+[node name="LeaveButton" type="Button" parent="LobbyView/ButtonBar"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+text = " Leave Lobby 
+"
+autowrap_trim_flags = 0
+
+[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_q3rjx")
+
+[node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+theme = ExtResource("1_wwsa2")
+text = "
+"
+icon = ExtResource("7_wbdvm")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MainVbox" type="VBoxContainer" parent="LobbyView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = 28.0
+offset_right = -33.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Window Label" type="Label" parent="LobbyView/MainVbox"]
+layout_mode = 2
+text = "LobbyName"
+horizontal_alignment = 1
+
+[node name="Hsep" type="HSeparator" parent="LobbyView/MainVbox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
+
+[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyView/MainVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerListVbox" type="VBoxContainer" parent="LobbyView/MainVbox/LobbyScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="ReadyButton" type="Button" parent="LobbyView/MainVbox"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_hph2t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qmlsk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tyk3f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_m8nev")
+toggle_mode = true
+text = "Ready"
+
+[node name="StartButton" type="Button" parent="LobbyView/MainVbox"]
+visible = false
+custom_minimum_size = Vector2(225, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_fwrfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qmlsk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cvyb0")
+text = "Start Game"
 
 [node name="MouseBlocker" type="Control" parent="."]
 visible = false
@@ -1283,95 +1431,6 @@ theme = ExtResource("1_wwsa2")
 theme_override_constants/outline_size = 0
 text = "Create Lobby"
 
-[node name="LobbyView" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_wwsa2")
-theme_override_styles/panel = SubResource("StyleBoxFlat_oc4uc")
-
-[node name="ButtonBar" type="HBoxContainer" parent="LobbyView"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 36.0
-offset_top = 11.0
-offset_right = -32.0
-offset_bottom = 79.0
-grow_horizontal = 2
-
-[node name="LeaveButton" type="Button" parent="LobbyView/ButtonBar"]
-custom_minimum_size = Vector2(68, 68)
-layout_mode = 2
-focus_mode = 0
-focus_behavior_recursive = 1
-text = " Leave Lobby 
-"
-autowrap_trim_flags = 0
-
-[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/separator = SubResource("StyleBoxEmpty_q3rjx")
-
-[node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar"]
-custom_minimum_size = Vector2(68, 68)
-layout_mode = 2
-focus_mode = 0
-focus_behavior_recursive = 1
-theme = ExtResource("1_wwsa2")
-text = "
-"
-icon = ExtResource("7_wbdvm")
-icon_alignment = 1
-expand_icon = true
-
-[node name="MainVbox" type="VBoxContainer" parent="LobbyView"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 33.0
-offset_top = 28.0
-offset_right = -33.0
-offset_bottom = -28.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Window Label" type="Label" parent="LobbyView/MainVbox"]
-layout_mode = 2
-text = "LobbyName"
-horizontal_alignment = 1
-
-[node name="Hsep" type="HSeparator" parent="LobbyView/MainVbox"]
-layout_mode = 2
-theme_override_constants/separation = 20
-theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
-
-[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyView/MainVbox"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PlayerListVbox" type="VBoxContainer" parent="LobbyView/MainVbox/LobbyScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-mouse_filter = 2
-
-[node name="Button" type="Button" parent="LobbyView/MainVbox"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_hph2t")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qmlsk")
-toggle_mode = true
-text = "Ready"
-
 [node name="ColorSelectPanel" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
@@ -1383,7 +1442,7 @@ anchor_bottom = 0.5
 offset_left = -540.0
 offset_top = -288.0
 offset_right = 540.0
-offset_bottom = 288.0
+offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wwsa2")
@@ -1636,14 +1695,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ConfirmButton" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_wwsa2")
-theme_override_constants/outline_size = 0
-text = "Confirm"
-
 [node name="PasswordPrompt" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -1739,6 +1790,69 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Confirm"
 
+[node name="StartGamePrompt" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="StartGamePrompt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -133.0
+offset_right = 304.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2sctt")
+
+[node name="MainVbox" type="VBoxContainer" parent="StartGamePrompt/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = 28.0
+offset_right = -33.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="Window Label" type="Label" parent="StartGamePrompt/Panel/MainVbox"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+text = "Are you sure you want to start the game?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StartGamePrompt/Panel/MainVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Confirm" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = " Start "
+
+[node name="Cancel" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = " Cancel "
+
 [node name="PopupPanel" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -1801,6 +1915,9 @@ text = "Ok"
 [connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="openLobbyBrowser"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="openLobbyCreator"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ExitButton" to="." method="exitGame"]
+[connection signal="pressed" from="LobbyView/ButtonBar/LeaveButton" to="." method="closeLobbyBrowser"]
+[connection signal="toggled" from="LobbyView/MainVbox/ReadyButton" to="." method="readyButtonToggled"]
+[connection signal="pressed" from="LobbyView/MainVbox/StartButton" to="." method="startGameButton"]
 [connection signal="pressed" from="LobbyBrowser/ButtonBar/RefreshLobbiesButton" to="." method="RefreshLobbies"]
 [connection signal="pressed" from="LobbyBrowser/ButtonBar/CloseButton" to="." method="closeLobbyBrowser"]
 [connection signal="pressed" from="LobbyCreator/ButtonBar/CloseButton" to="." method="closeLobbyCreator"]
@@ -1808,6 +1925,6 @@ text = "Ok"
 [connection signal="value_changed" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit/Field" to="." method="onTurnTimeLimitChanged"]
 [connection signal="item_selected" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder/Field" to="." method="onVisibilityChanged"]
 [connection signal="pressed" from="LobbyCreator/Button" to="." method="createLobby"]
-[connection signal="pressed" from="LobbyView/ButtonBar/LeaveButton" to="." method="closeLobbyBrowser"]
-[connection signal="pressed" from="ColorSelectPanel/ColorSelectMargin/MainVbox/ConfirmButton" to="." method="createLobby"]
 [connection signal="pressed" from="PasswordPrompt/Panel/ButtonBar/CloseButton" to="." method="closePasswordPrompt"]
+[connection signal="pressed" from="StartGamePrompt/Panel/MainVbox/HBoxContainer/Confirm" to="." method="ConfirmStart"]
+[connection signal="pressed" from="StartGamePrompt/Panel/MainVbox/HBoxContainer/Cancel" to="." method="closeStartPrompt"]
