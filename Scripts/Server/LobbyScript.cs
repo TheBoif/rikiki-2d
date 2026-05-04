@@ -176,6 +176,7 @@ public partial class LobbyScript : Node
 		{
 			LobbyID = lobbyID
 		};
+		menuScript.lobbyJoinedResp();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
