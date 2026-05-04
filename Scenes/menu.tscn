@@ -731,7 +731,7 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" node_paths=PackedStringArray("LobbyView", "MouseBlocker", "LobbyBrowser", "LobbyCreator", "ColorSelectPanel", "PasswordPrompt", "StartGamePrompt", "PopupPanel", "CreatePasswordField", "LobbyListContainer", "PlayerListContainer", "ColorGrid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -742,6 +742,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_wwsa2")
 script = ExtResource("1_cayip")
+LobbyView = NodePath("LobbyView")
+MouseBlocker = NodePath("MouseBlocker")
+LobbyBrowser = NodePath("LobbyBrowser")
+LobbyCreator = NodePath("LobbyCreator")
+ColorSelectPanel = NodePath("ColorSelectPanel")
+PasswordPrompt = NodePath("PasswordPrompt")
+StartGamePrompt = NodePath("StartGamePrompt")
+PopupPanel = NodePath("PopupPanel")
+CreatePasswordField = NodePath("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField")
+LobbyListContainer = NodePath("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox")
+PlayerListContainer = NodePath("LobbyView/MainVbox/LobbyScrollContainer/PlayerListVbox")
+ColorGrid = NodePath("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

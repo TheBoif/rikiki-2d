@@ -265,7 +265,7 @@ public partial class LobbyScript : Node
 				playerBG.SetCornerRadiusAll(5);
 				((Panel)playerListItem).AddThemeStyleboxOverride("panel", playerBG);
 
-				Button colorbtn =  menuScript.colorGrid.GetChild(playerColorIndeces[i]).GetChild(0) as Button;
+				Button colorbtn =  menuScript.ColorGrid.GetChild(playerColorIndeces[i]).GetChild(0) as Button;
 				colorbtn.Disabled = true;
 				colorbtn.Icon = GD.Load<Texture2D>("res://Textures/exitbutton.png");
 			}

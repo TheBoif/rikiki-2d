@@ -7,31 +7,30 @@ using System.Security.Cryptography;
 public partial class MenuScript : Node
 {
 	#region Menu refrences
-	Control MouseBlocker;
-	Control LobbyBrowser;
-	Control LobbyCreator;
-	Control PasswordPrompt;
-	Control CreatePasswordField;
-	Control PopupPanel;
-	Control LobbyView;
-	Control LobbyPlayerList;
-	Control startGamePrompt;
-	public GridContainer colorGrid;
+	[Export] Control LobbyView;
+	[Export] Control MouseBlocker;
+	[Export] Control LobbyBrowser;
+	[Export] Control LobbyCreator;
+	[Export] Control ColorSelectPanel;
+	[Export] Control PasswordPrompt;
+	[Export] Control StartGamePrompt;
+	[Export] Control PopupPanel;
+	[Export] Control CreatePasswordField;
+	[Export] VBoxContainer LobbyListContainer;
+	[Export] VBoxContainer PlayerListContainer;
+	[Export] public GridContainer ColorGrid;
 
 	public override void _Ready()
 	{
-		//Creating refrences
-		MouseBlocker = GetNode<Control>("MouseBlocker");
-		LobbyBrowser = GetNode<Control>("LobbyBrowser");
-		LobbyCreator = GetNode<Control>("LobbyCreator");
-		PasswordPrompt = GetNode<Control>("PasswordPrompt");
-		LobbyView = GetNode<Control>("LobbyView");
-		PopupPanel = GetNode<Control>("PopupPanel");
-		startGamePrompt = GetNode<Control>("StartGamePrompt");
+		/* PATHS
 		CreatePasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox");
 		LobbyScript.Instance.PlayerListContainer = GetNode<VBoxContainer>("LobbyView/MainVbox/LobbyScrollContainer/PlayerListVbox");
-		colorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");
+		ColorGrid = GetNode<GridContainer>("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid");*/
+		
+		LobbyScript.Instance.LobbyListContainer = LobbyListContainer;
+		LobbyScript.Instance.PlayerListContainer = PlayerListContainer;
+
 		PopupPanel.GetNode<Button>("Panel/MainVbox/OkButton").Pressed += () => PopupPanel.Visible = false;
 	}
 	#endregion
@@ -69,7 +68,7 @@ public partial class MenuScript : Node
 	public void openColorSelectPanel()
 	{
 		int i = 0;
-		foreach(var node in colorGrid.GetChildren())
+		foreach(var node in ColorGrid.GetChildren())
 		{
 			MouseBlocker.Visible = true;
 			Button button = node.GetChild(0) as Button;
@@ -94,7 +93,7 @@ public partial class MenuScript : Node
 			button.Pressed += () => {LobbyScript.Instance.RpcId(1, "pickColorReq", GlobalScript.Instance.peer.GetUniqueId(), LobbyScript.Instance.properties.LobbyID, temp); MouseBlocker.Visible = false;};
 			i++;
 		}
-		GetNode<PanelContainer>("ColorSelectPanel").Visible = true;
+		ColorSelectPanel.Visible = true;
 	}
 
 	public void lobbyLeftResp(string reason = "Left")
@@ -165,20 +164,20 @@ public partial class MenuScript : Node
 			if(!peer.isReady)
 			{
 				allReady = false;
-				startGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?\nNot all players are ready!";
+				StartGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?\nNot all players are ready!";
 				break;
 			}
 		}
 		if(allReady)
 		{
-			startGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?";
+			StartGamePrompt.GetNode<Label>("Panel/MainVbox/Window Label").Text = "Are you sure you want to start the game?";
 		}
-		startGamePrompt.Visible = true;
+		StartGamePrompt.Visible = true;
 	}
 
 	public void closeStartPrompt()
 	{
-		startGamePrompt.Visible = false;
+		StartGamePrompt.Visible = false;
 	}
 
 	public void ConfirmStart()
