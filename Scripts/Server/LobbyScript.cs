@@ -68,7 +68,7 @@ public partial class LobbyScript : Node
 			return;
 		}
 
-		RpcId(joiningUID, "lobbyJoinResp", "success", lobbyID, lobbies[lobbyID].lobbyName, (int)lobbies[lobbyID].visibility, lobbies[lobbyID].password, lobbies[lobbyID].maxPlayers, lobbies[lobbyID].maxCards, lobbies[lobbyID].timeLimit, (int)lobbies[lobbyID].roundOrder, lobbies[lobbyID].revealCards, lobbies[lobbyID].pointValues);
+		RpcId(joiningUID, "lobbyJoinResp", lobbyID, lobbies[lobbyID].lobbyName, (int)lobbies[lobbyID].visibility, lobbies[lobbyID].password, lobbies[lobbyID].maxPlayers, lobbies[lobbyID].maxCards, lobbies[lobbyID].timeLimit, (int)lobbies[lobbyID].roundOrder, lobbies[lobbyID].revealCards, lobbies[lobbyID].pointValues);
 		lobbies[lobbyID].players.Add(new LobbyPlayer(playerName, -1, joiningUID));
 	}
 
