@@ -38,7 +38,7 @@ public partial class MenuScript : Node
 
 	public override void _Process(double delta)
 	{
-		if (OS.HasFeature("dedicated_server"))
+		if (OS.HasFeature("dedicated_server") || OS.GetCmdlineArgs().ToList().Contains("--server"))
 		{
 			GetTree().ChangeSceneToFile("res://Scenes/ServerScene.tscn");
 		}

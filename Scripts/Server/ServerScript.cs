@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 //84.3.73.101 - my public ip
 public partial class ServerScript : Node
 {
@@ -21,7 +22,7 @@ public partial class ServerScript : Node
 		Instance = this;
 
 		// if it's running as a headless app, the instance should run as server
-		isServer = OS.HasFeature("dedicated_server");
+		isServer = OS.HasFeature("dedicated_server")  || OS.GetCmdlineArgs().ToList().Contains("--server");
 
 		peer = new ENetMultiplayerPeer();
 
