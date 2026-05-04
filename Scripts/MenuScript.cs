@@ -22,6 +22,12 @@ public partial class MenuScript : Node
 
 	public override void _Ready()
 	{
+
+		if (OS.HasFeature("dedicated_server") || OS.GetCmdlineArgs().ToList().Contains("--server"))
+		{
+			GetTree().ChangeSceneToFile("res://Scenes/ServerScene.tscn");
+		}
+
 		/* PATHS
 		CreatePasswordField = GetNode<Control>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField");
 		LobbyScript.Instance.LobbyListContainer = GetNode<VBoxContainer>("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyListVbox");

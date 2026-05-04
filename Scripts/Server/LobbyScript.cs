@@ -52,19 +52,19 @@ public partial class LobbyScript : Node
 	{
 		if(!lobbies.ContainsKey(lobbyID))
 		{
-			RpcId(joiningUID, "lobbyJoinResp", "badId");
+			RpcId(joiningUID, "lobbyJoinError", "badId");
 			return;
 		}
 
 		if(lobbies[lobbyID].maxPlayers <= lobbies[lobbyID].players.Count)
 		{
-			RpcId(joiningUID, "lobbyJoinResp", "full");
+			RpcId(joiningUID, "lobbyJoinError", "full");
 			return;
 		}
 
 		if(lobbies[lobbyID].password != "" && Functions.HashString(password) != lobbies[lobbyID].password)
 		{
-			RpcId(joiningUID, "lobbyJoinResp", "badPassword");
+			RpcId(joiningUID, "lobbyJoinError", "badPassword");
 			return;
 		}
 
@@ -162,21 +162,27 @@ public partial class LobbyScript : Node
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
 	public void lobbyCreateResp(long lobbyID, string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues)
 	{
-		properties = new LobbyProperties(lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues);
-		properties.LobbyID = lobbyID;
-		menuScript.lobbyCreatedResp();
+        properties = new LobbyProperties(lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues)
+        {
+            LobbyID = lobbyID
+        };
+        menuScript.lobbyCreatedResp();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void lobbyJoinResp(String result, long lobbyID = 0, string lobbyName = "", LobbyVisibility visibility = 0, string password = "", int maxPlayer = 0, int maxCards = 0, int timeLimit = 0, RoundOrder roundOrder = 0, bool reveal = false, int[] pointValues = null)
+	public void lobbyJoinResp(long lobbyID = 0, string lobbyName = "", LobbyVisibility visibility = 0, string password = "", int maxPlayer = 0, int maxCards = 0, int timeLimit = 0, RoundOrder roundOrder = 0, bool reveal = false, int[] pointValues = null)
+	{
+		properties = new LobbyProperties(lobbyName, visibility, password, maxPlayer, maxCards, timeLimit, roundOrder, reveal, pointValues)
+		{
+			LobbyID = lobbyID
+		};
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
+	public void lobbyJoinError(string result)
 	{
 		switch(result)
 		{
-			case "success":
-				properties = new LobbyProperties(lobbyName, visibility, password, maxPlayer, maxCards, timeLimit, roundOrder, reveal, pointValues);
-				properties.LobbyID = lobbyID;
-				menuScript.lobbyJoinedResp();
-				break;
 			case "badId":
 				menuScript.PopupMessage("Failed to Join Lobby", "Lobby does not exist.");
 				break;
@@ -207,13 +213,15 @@ public partial class LobbyScript : Node
 		}
 		if(lobbyIDs.Length == 0)
 		{
-			Label noLobbiesLabel = new Label();
-			noLobbiesLabel.Text = "No lobbies available.";
-			noLobbiesLabel.HorizontalAlignment = HorizontalAlignment.Center;
-			noLobbiesLabel.VerticalAlignment = VerticalAlignment.Center;
-			noLobbiesLabel.GrowHorizontal = Control.GrowDirection.Both;
-			noLobbiesLabel.GrowVertical = Control.GrowDirection.Both;
-			noLobbiesLabel.AddThemeFontSizeOverride("font_size", 50);
+            Label noLobbiesLabel = new Label
+            {
+                Text = "No lobbies available.",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                GrowHorizontal = Control.GrowDirection.Both,
+                GrowVertical = Control.GrowDirection.Both
+            };
+            noLobbiesLabel.AddThemeFontSizeOverride("font_size", 50);
 			LobbyListContainer.AddChild(noLobbiesLabel);
 			return;
 		}
