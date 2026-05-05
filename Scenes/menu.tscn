@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://b47yh3rjmhknp"]
+[gd_scene format=3 uid="uid://b47yh3rjmhknp"]
 
 [ext_resource type="Texture2D" uid="uid://capsdbdenchr8" path="res://Textures/MenuBG.png" id="1_1rerr"]
 [ext_resource type="Script" uid="uid://dinag5uu4pvt7" path="res://Scripts/MenuScript.cs" id="1_cayip"]
@@ -731,7 +731,7 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("LobbyView", "MouseBlocker", "LobbyBrowser", "LobbyCreator", "ColorSelectPanel", "PasswordPrompt", "StartGamePrompt", "PopupPanel", "CreatePasswordField", "LobbyListContainer", "PlayerListContainer", "ColorGrid")]
+[node name="Menu" type="Control" unique_id=1371461457 node_paths=PackedStringArray("LobbyView", "MouseBlocker", "LobbyBrowser", "LobbyCreator", "ColorSelectPanel", "PasswordPrompt", "StartGamePrompt", "PopupPanel", "CreatePasswordField", "LobbyListContainer", "PlayerListContainer", "ColorGrid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -755,7 +755,7 @@ LobbyListContainer = NodePath("LobbyBrowser/MainVbox/LobbyScrollContainer/LobbyL
 PlayerListContainer = NodePath("LobbyView/MainVbox/LobbyScrollContainer/PlayerListVbox")
 ColorGrid = NodePath("ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1554386152]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -767,7 +767,7 @@ texture = ExtResource("1_1rerr")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1181879070]
 material = SubResource("CanvasItemMaterial_wbdvm")
 position = Vector2(900, -400)
 emitting = false
@@ -789,7 +789,7 @@ scale_amount_min = 0.2
 scale_amount_max = 0.2
 anim_offset_max = 1.0
 
-[node name="MenuContainer" type="Panel" parent="."]
+[node name="MenuContainer" type="Panel" parent="." unique_id=1256719441]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -797,7 +797,7 @@ offset_right = 474.0
 grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer" unique_id=1909725185]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -806,47 +806,47 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Label" type="Label" parent="MenuContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MenuContainer/VBoxContainer" unique_id=605121081]
 layout_mode = 2
 text = "Rikiki"
 label_settings = SubResource("LabelSettings_1rerr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MenuContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MenuContainer/VBoxContainer" unique_id=384198674]
 layout_mode = 2
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_158mb")
 
-[node name="join lobby" type="Button" parent="MenuContainer/VBoxContainer"]
+[node name="join lobby" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1135062108]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Join Lobby"
 
-[node name="create lobby" type="Button" parent="MenuContainer/VBoxContainer"]
+[node name="create lobby" type="Button" parent="MenuContainer/VBoxContainer" unique_id=285722574]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Create Lobby"
 
-[node name="host server" type="Button" parent="MenuContainer/VBoxContainer"]
+[node name="host server" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1686382160]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Host Server"
 
-[node name="host server2" type="Button" parent="MenuContainer/VBoxContainer"]
+[node name="host server2" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1623964162]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Profile"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1909580837]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -860,14 +860,14 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1041720937]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 5
 alignment = 2
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1260542261]
 custom_minimum_size = Vector2(58, 58)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xhh6f")
@@ -875,7 +875,7 @@ icon = ExtResource("7_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ExitButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="ExitButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1323171345]
 custom_minimum_size = Vector2(58, 58)
 layout_mode = 2
 theme_override_icons/icon = ExtResource("2_xhh6f")
@@ -886,7 +886,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_cayip")
 icon_alignment = 1
 expand_icon = true
 
-[node name="LobbyView" type="Panel" parent="."]
+[node name="LobbyView" type="Panel" parent="." unique_id=943776072]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -897,7 +897,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_oc4uc")
 
-[node name="ButtonBar" type="HBoxContainer" parent="LobbyView"]
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyView" unique_id=636577500]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -907,7 +907,7 @@ offset_right = -32.0
 offset_bottom = 79.0
 grow_horizontal = 2
 
-[node name="LeaveButton" type="Button" parent="LobbyView/ButtonBar"]
+[node name="LeaveButton" type="Button" parent="LobbyView/ButtonBar" unique_id=1704975577]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -916,12 +916,12 @@ text = " Leave Lobby
 "
 autowrap_trim_flags = 0
 
-[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar"]
+[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar" unique_id=1629103083]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_q3rjx")
 
-[node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar"]
+[node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar" unique_id=1212678283]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -933,7 +933,7 @@ icon = ExtResource("7_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MainVbox" type="VBoxContainer" parent="LobbyView"]
+[node name="MainVbox" type="VBoxContainer" parent="LobbyView" unique_id=1812515651]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -946,27 +946,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Window Label" type="Label" parent="LobbyView/MainVbox"]
+[node name="Window Label" type="Label" parent="LobbyView/MainVbox" unique_id=1004253538]
 layout_mode = 2
 text = "LobbyName"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="LobbyView/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="LobbyView/MainVbox" unique_id=586548437]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyView/MainVbox"]
+[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyView/MainVbox" unique_id=1151267581]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerListVbox" type="VBoxContainer" parent="LobbyView/MainVbox/LobbyScrollContainer"]
+[node name="PlayerListVbox" type="VBoxContainer" parent="LobbyView/MainVbox/LobbyScrollContainer" unique_id=1361222608]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="ReadyButton" type="Button" parent="LobbyView/MainVbox"]
+[node name="ReadyButton" type="Button" parent="LobbyView/MainVbox" unique_id=274956500]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -977,7 +977,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_m8nev")
 toggle_mode = true
 text = "Ready"
 
-[node name="StartButton" type="Button" parent="LobbyView/MainVbox"]
+[node name="StartButton" type="Button" parent="LobbyView/MainVbox" unique_id=502088520]
 visible = false
 custom_minimum_size = Vector2(225, 70)
 layout_mode = 2
@@ -987,7 +987,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_qmlsk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cvyb0")
 text = "Start Game"
 
-[node name="MouseBlocker" type="Control" parent="."]
+[node name="MouseBlocker" type="Control" parent="." unique_id=2135312651]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -997,7 +997,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 
-[node name="LobbyBrowser" type="Panel" parent="."]
+[node name="LobbyBrowser" type="Panel" parent="." unique_id=1731554052]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1012,7 +1012,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwsa2")
 
-[node name="ButtonBar" type="HBoxContainer" parent="LobbyBrowser"]
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyBrowser" unique_id=2065039646]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1023,7 +1023,7 @@ offset_bottom = 79.0
 grow_horizontal = 2
 alignment = 2
 
-[node name="RefreshLobbiesButton" type="Button" parent="LobbyBrowser/ButtonBar"]
+[node name="RefreshLobbiesButton" type="Button" parent="LobbyBrowser/ButtonBar" unique_id=1726931635]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -1031,7 +1031,7 @@ focus_behavior_recursive = 1
 text = "
 "
 
-[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/RefreshLobbiesButton"]
+[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/RefreshLobbiesButton" unique_id=1828949782]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1046,7 +1046,7 @@ texture = ExtResource("4_158mb")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="CloseButton" type="Button" parent="LobbyBrowser/ButtonBar"]
+[node name="CloseButton" type="Button" parent="LobbyBrowser/ButtonBar" unique_id=312496549]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -1054,7 +1054,7 @@ focus_behavior_recursive = 1
 text = "
 "
 
-[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/CloseButton"]
+[node name="Icon" type="TextureRect" parent="LobbyBrowser/ButtonBar/CloseButton" unique_id=1797098447]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1069,7 +1069,7 @@ texture = ExtResource("2_xhh6f")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainVbox" type="VBoxContainer" parent="LobbyBrowser"]
+[node name="MainVbox" type="VBoxContainer" parent="LobbyBrowser" unique_id=440127498]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1082,27 +1082,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Window Label" type="Label" parent="LobbyBrowser/MainVbox"]
+[node name="Window Label" type="Label" parent="LobbyBrowser/MainVbox" unique_id=1134110829]
 layout_mode = 2
 text = "Public Lobbies"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="LobbyBrowser/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="LobbyBrowser/MainVbox" unique_id=598404128]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyBrowser/MainVbox"]
+[node name="LobbyScrollContainer" type="ScrollContainer" parent="LobbyBrowser/MainVbox" unique_id=481638455]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LobbyListVbox" type="VBoxContainer" parent="LobbyBrowser/MainVbox/LobbyScrollContainer"]
+[node name="LobbyListVbox" type="VBoxContainer" parent="LobbyBrowser/MainVbox/LobbyScrollContainer" unique_id=718861669]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="LobbyCreator" type="Panel" parent="."]
+[node name="LobbyCreator" type="Panel" parent="." unique_id=1683384434]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1117,7 +1117,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwsa2")
 
-[node name="ButtonBar" type="HBoxContainer" parent="LobbyCreator"]
+[node name="ButtonBar" type="HBoxContainer" parent="LobbyCreator" unique_id=1042806187]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1129,7 +1129,7 @@ grow_horizontal = 2
 theme = ExtResource("1_wwsa2")
 alignment = 2
 
-[node name="CloseButton" type="Button" parent="LobbyCreator/ButtonBar"]
+[node name="CloseButton" type="Button" parent="LobbyCreator/ButtonBar" unique_id=201001358]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -1138,7 +1138,7 @@ theme = ExtResource("1_wwsa2")
 text = "
 "
 
-[node name="Icon" type="TextureRect" parent="LobbyCreator/ButtonBar/CloseButton"]
+[node name="Icon" type="TextureRect" parent="LobbyCreator/ButtonBar/CloseButton" unique_id=484474585]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1154,7 +1154,7 @@ texture = ExtResource("2_xhh6f")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainVbox" type="VBoxContainer" parent="LobbyCreator"]
+[node name="MainVbox" type="VBoxContainer" parent="LobbyCreator" unique_id=1869082267]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1169,54 +1169,54 @@ mouse_filter = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 10
 
-[node name="Window Label" type="Label" parent="LobbyCreator/MainVbox"]
+[node name="Window Label" type="Label" parent="LobbyCreator/MainVbox" unique_id=1406302588]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Public Lobbies"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="LobbyCreator/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="LobbyCreator/MainVbox" unique_id=377723743]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 10
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="LobbyCreator/MainVbox"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LobbyCreator/MainVbox" unique_id=1435517026]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer" unique_id=1569265830]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 15
 
-[node name="Name" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="Name" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1416335970]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name" unique_id=119923097]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Lobby Name:"
 
-[node name="Field" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name"]
+[node name="Field" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Name" unique_id=866027236]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_wwsa2")
 
-[node name="Visibility" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="Visibility" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1219247827]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility" unique_id=1868587789]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Visibility: "
 
-[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility" unique_id=963322984]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 selected = 0
@@ -1228,24 +1228,24 @@ popup/item_1/id = 1
 popup/item_2/text = "Private"
 popup/item_2/id = 2
 
-[node name="PasswordField" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility"]
+[node name="PasswordField" type="LineEdit" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility" unique_id=913649432]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_wwsa2")
 placeholder_text = "Password"
 
-[node name="MaxPlayers" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="MaxPlayers" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=782469459]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers" unique_id=718424924]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Max Players: "
 
-[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers"]
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxPlayers" unique_id=1265631849]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1254,24 +1254,24 @@ min_value = 3.0
 max_value = 10.0
 value = 10.0
 
-[node name="Hsep2" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="Hsep2" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1601780907]
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_wbdvm")
 
-[node name="MaxCards" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="MaxCards" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=218866119]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards" unique_id=2055952925]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Max Cards: "
 
-[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards"]
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MaxCards" unique_id=2117202682]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1281,17 +1281,17 @@ max_value = 10.0
 value = 10.0
 rounded = true
 
-[node name="TimeLimit" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="TimeLimit" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=282362294]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit" unique_id=513983255]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Turn Time Limit: "
 
-[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+[node name="Field" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit" unique_id=481372312]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1300,23 +1300,23 @@ allow_greater = true
 suffix = "s"
 custom_arrow_step = 5.0
 
-[node name="DisabledLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit"]
+[node name="DisabledLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/TimeLimit" unique_id=1529271975]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_colors/font_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
 text = "Disabled"
 
-[node name="RoundOrder" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="RoundOrder" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1155913377]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder" unique_id=935726973]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Round Order: "
 
-[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder"]
+[node name="Field" type="OptionButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder" unique_id=319452240]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 selected = 0
@@ -1330,42 +1330,42 @@ popup/item_2/id = 2
 popup/item_3/text = "max → 1"
 popup/item_3/id = 3
 
-[node name="RevealFirstCard" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="RevealFirstCard" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=834186347]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard"]
+[node name="Label" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard" unique_id=1855405732]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Reveal First Card: "
 
-[node name="Field" type="CheckButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard"]
+[node name="Field" type="CheckButton" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RevealFirstCard" unique_id=1434682538]
 layout_mode = 2
 
-[node name="Hsep3" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="Hsep3" type="HSeparator" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=43988521]
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_wbdvm")
 
-[node name="CorrectPointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="CorrectPointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1370372993]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_colors/font_color = Color(0.26169252, 0.7299374, 3.85046e-07, 1)
 text = "Points for correct guesses"
 
-[node name="CorrectPoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="CorrectPoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=34011514]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints" unique_id=1504452758]
 layout_mode = 2
 text = "Fixed:"
 
-[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints" unique_id=1914573667]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1375,11 +1375,11 @@ rounded = true
 allow_greater = true
 custom_arrow_step = 5.0
 
-[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints" unique_id=2099723311]
 layout_mode = 2
 text = "Multiplied:"
 
-[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints"]
+[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/CorrectPoints" unique_id=1023738746]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1389,22 +1389,22 @@ rounded = true
 allow_greater = true
 custom_arrow_step = 5.0
 
-[node name="MistakePointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="MistakePointsLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=557269339]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_colors/font_color = Color(0.5726692, 1.0227784e-06, 1.92523e-07, 1)
 text = "Deductions for incorrect guesses"
 
-[node name="MistakePoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer"]
+[node name="MistakePoints" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=1914474339]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 15
 
-[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+[node name="fixLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints" unique_id=1141717044]
 layout_mode = 2
 text = "Fixed:"
 
-[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+[node name="Fix" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints" unique_id=954816950]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1414,11 +1414,11 @@ rounded = true
 allow_greater = true
 custom_arrow_step = 5.0
 
-[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+[node name="MultiLabel" type="Label" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints" unique_id=1592150511]
 layout_mode = 2
 text = "Multiplied:"
 
-[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints"]
+[node name="Multi" type="SpinBox" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/MistakePoints" unique_id=2135958383]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_wwsa2")
@@ -1428,7 +1428,7 @@ rounded = true
 allow_greater = true
 custom_arrow_step = 5.0
 
-[node name="Button" type="Button" parent="LobbyCreator"]
+[node name="Button" type="Button" parent="LobbyCreator" unique_id=946340503]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1443,7 +1443,7 @@ theme = ExtResource("1_wwsa2")
 theme_override_constants/outline_size = 0
 text = "Create Lobby"
 
-[node name="ColorSelectPanel" type="PanelContainer" parent="."]
+[node name="ColorSelectPanel" type="PanelContainer" parent="." unique_id=1195404280]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -1460,42 +1460,42 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_je088")
 
-[node name="ColorSelectMargin" type="MarginContainer" parent="ColorSelectPanel"]
+[node name="ColorSelectMargin" type="MarginContainer" parent="ColorSelectPanel" unique_id=590931515]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="MainVbox" type="VBoxContainer" parent="ColorSelectPanel/ColorSelectMargin"]
+[node name="MainVbox" type="VBoxContainer" parent="ColorSelectPanel/ColorSelectMargin" unique_id=622485620]
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 20
 
-[node name="Window Label" type="Label" parent="ColorSelectPanel/ColorSelectMargin/MainVbox"]
+[node name="Window Label" type="Label" parent="ColorSelectPanel/ColorSelectMargin/MainVbox" unique_id=607173281]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 text = "Choose a Color"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="ColorSelectPanel/ColorSelectMargin/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="ColorSelectPanel/ColorSelectMargin/MainVbox" unique_id=365714287]
 layout_mode = 2
 theme = ExtResource("1_wwsa2")
 theme_override_constants/separation = 10
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="ColorGrid" type="GridContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox"]
+[node name="ColorGrid" type="GridContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox" unique_id=628569041]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 6
 
-[node name="ARC1" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC1" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1410775343]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC1"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC1" unique_id=2028908113]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1509,11 +1509,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC2" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC2" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1540517807]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC2"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC2" unique_id=1554547804]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1527,11 +1527,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC3" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC3" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1311999450]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC3"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC3" unique_id=361135316]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1545,11 +1545,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC4" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC4" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1636096167]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC4"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC4" unique_id=1945263697]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1563,11 +1563,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC5" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC5" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=2007283673]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC5"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC5" unique_id=1007060019]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1581,11 +1581,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC6" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC6" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=2047371381]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC6"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC6" unique_id=1624162940]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1599,11 +1599,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC7" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC7" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1649553398]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC7"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC7" unique_id=37618553]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1617,11 +1617,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_jsrd8")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC8" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC8" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=2020221624]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC8"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC8" unique_id=488556063]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1635,11 +1635,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC9" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC9" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=626186]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC9"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC9" unique_id=786240681]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1653,11 +1653,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC10" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC10" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1021525118]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC10"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC10" unique_id=726048974]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1671,11 +1671,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC11" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC11" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1651265477]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC11"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC11" unique_id=1561021877]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1689,11 +1689,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ARC12" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid"]
+[node name="ARC12" type="AspectRatioContainer" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid" unique_id=1442057802]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC12"]
+[node name="Button" type="Button" parent="ColorSelectPanel/ColorSelectMargin/MainVbox/ColorGrid/ARC12" unique_id=652091723]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1707,7 +1707,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_wbdvm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="PasswordPrompt" type="Control" parent="."]
+[node name="PasswordPrompt" type="Control" parent="." unique_id=1174621473]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1716,7 +1716,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="PasswordPrompt"]
+[node name="Panel" type="Panel" parent="PasswordPrompt" unique_id=702046374]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1732,7 +1732,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2sctt")
 
-[node name="ButtonBar" type="HBoxContainer" parent="PasswordPrompt/Panel"]
+[node name="ButtonBar" type="HBoxContainer" parent="PasswordPrompt/Panel" unique_id=1560770291]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1743,7 +1743,7 @@ offset_bottom = 79.0
 grow_horizontal = 2
 alignment = 2
 
-[node name="CloseButton" type="Button" parent="PasswordPrompt/Panel/ButtonBar"]
+[node name="CloseButton" type="Button" parent="PasswordPrompt/Panel/ButtonBar" unique_id=1570553344]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 focus_mode = 0
@@ -1751,7 +1751,7 @@ focus_behavior_recursive = 1
 text = "
 "
 
-[node name="Icon" type="TextureRect" parent="PasswordPrompt/Panel/ButtonBar/CloseButton"]
+[node name="Icon" type="TextureRect" parent="PasswordPrompt/Panel/ButtonBar/CloseButton" unique_id=2126930842]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1766,7 +1766,7 @@ texture = ExtResource("2_xhh6f")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainVbox" type="VBoxContainer" parent="PasswordPrompt/Panel"]
+[node name="MainVbox" type="VBoxContainer" parent="PasswordPrompt/Panel" unique_id=1702518375]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1780,29 +1780,29 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 15
 
-[node name="Window Label" type="Label" parent="PasswordPrompt/Panel/MainVbox"]
+[node name="Window Label" type="Label" parent="PasswordPrompt/Panel/MainVbox" unique_id=559401079]
 layout_mode = 2
 text = "Please Enter Password"
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="PasswordPrompt/Panel/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="PasswordPrompt/Panel/MainVbox" unique_id=645033071]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="Field" type="LineEdit" parent="PasswordPrompt/Panel/MainVbox"]
+[node name="Field" type="LineEdit" parent="PasswordPrompt/Panel/MainVbox" unique_id=1990994911]
 layout_mode = 2
 placeholder_text = "Password"
 secret = true
 secret_character = "*"
 
-[node name="Confirm" type="Button" parent="PasswordPrompt/Panel/MainVbox"]
+[node name="Confirm" type="Button" parent="PasswordPrompt/Panel/MainVbox" unique_id=223899273]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Confirm"
 
-[node name="StartGamePrompt" type="Control" parent="."]
+[node name="StartGamePrompt" type="Control" parent="." unique_id=1948158845]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1811,7 +1811,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="StartGamePrompt"]
+[node name="Panel" type="Panel" parent="StartGamePrompt" unique_id=1147677895]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1827,7 +1827,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2sctt")
 
-[node name="MainVbox" type="VBoxContainer" parent="StartGamePrompt/Panel"]
+[node name="MainVbox" type="VBoxContainer" parent="StartGamePrompt/Panel" unique_id=1144821070]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1841,31 +1841,31 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 15
 
-[node name="Window Label" type="Label" parent="StartGamePrompt/Panel/MainVbox"]
+[node name="Window Label" type="Label" parent="StartGamePrompt/Panel/MainVbox" unique_id=1150520215]
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 text = "Are you sure you want to start the game?"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StartGamePrompt/Panel/MainVbox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StartGamePrompt/Panel/MainVbox" unique_id=85921673]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Confirm" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer"]
+[node name="Confirm" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer" unique_id=1228654390]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 text = " Start "
 
-[node name="Cancel" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer"]
+[node name="Cancel" type="Button" parent="StartGamePrompt/Panel/MainVbox/HBoxContainer" unique_id=166628822]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 text = " Cancel "
 
-[node name="PopupPanel" type="Control" parent="."]
+[node name="PopupPanel" type="Control" parent="." unique_id=199223463]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1874,7 +1874,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="PopupPanel"]
+[node name="Panel" type="Panel" parent="PopupPanel" unique_id=1280699801]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1890,7 +1890,7 @@ grow_vertical = 2
 theme = ExtResource("1_wwsa2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2sctt")
 
-[node name="MainVbox" type="VBoxContainer" parent="PopupPanel/Panel"]
+[node name="MainVbox" type="VBoxContainer" parent="PopupPanel/Panel" unique_id=995987404]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1904,20 +1904,20 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 15
 
-[node name="Header" type="Label" parent="PopupPanel/Panel/MainVbox"]
+[node name="Header" type="Label" parent="PopupPanel/Panel/MainVbox" unique_id=1371231425]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Hsep" type="HSeparator" parent="PopupPanel/Panel/MainVbox"]
+[node name="Hsep" type="HSeparator" parent="PopupPanel/Panel/MainVbox" unique_id=612070392]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
 
-[node name="Message" type="Label" parent="PopupPanel/Panel/MainVbox"]
+[node name="Message" type="Label" parent="PopupPanel/Panel/MainVbox" unique_id=1530150185]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="OkButton" type="Button" parent="PopupPanel/Panel/MainVbox"]
+[node name="OkButton" type="Button" parent="PopupPanel/Panel/MainVbox" unique_id=1575258069]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1927,7 +1927,7 @@ text = "Ok"
 [connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="openLobbyBrowser"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="openLobbyCreator"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ExitButton" to="." method="exitGame"]
-[connection signal="pressed" from="LobbyView/ButtonBar/LeaveButton" to="." method="closeLobbyBrowser"]
+[connection signal="pressed" from="LobbyView/ButtonBar/LeaveButton" to="." method="leaveLobbyButton"]
 [connection signal="toggled" from="LobbyView/MainVbox/ReadyButton" to="." method="readyButtonToggled"]
 [connection signal="pressed" from="LobbyView/MainVbox/StartButton" to="." method="startGameButton"]
 [connection signal="pressed" from="LobbyBrowser/ButtonBar/RefreshLobbiesButton" to="." method="RefreshLobbies"]
