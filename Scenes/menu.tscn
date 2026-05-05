@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cj75w8q5knq2h" path="res://Textures/Refresh.png" id="4_158mb"]
 [ext_resource type="Texture2D" uid="uid://brnyt3pskxqi0" path="res://Textures/cards/cardsSpritesheet.png" id="4_jsrd8"]
 [ext_resource type="Texture2D" uid="uid://ct4gkfs5gpy6p" path="res://Textures/Gear.png" id="7_wbdvm"]
+[ext_resource type="PackedScene" uid="uid://j5opjmhpii58" path="res://Scenes/Card.tscn" id="8_q3rjx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wbdvm"]
 particles_animation = true
@@ -906,6 +907,7 @@ offset_top = 11.0
 offset_right = -32.0
 offset_bottom = 79.0
 grow_horizontal = 2
+theme_override_constants/separation = 4
 
 [node name="LeaveButton" type="Button" parent="LobbyView/ButtonBar" unique_id=1704975577]
 custom_minimum_size = Vector2(68, 68)
@@ -916,10 +918,16 @@ text = " Leave Lobby
 "
 autowrap_trim_flags = 0
 
-[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar" unique_id=1629103083]
+[node name="VSeparator" type="VSeparator" parent="LobbyView/ButtonBar" unique_id=1180686963]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_q3rjx")
+
+[node name="LobbyID" type="Label" parent="LobbyView/ButtonBar" unique_id=1615584039]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ABCDEF"
+horizontal_alignment = 1
 
 [node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar" unique_id=1212678283]
 custom_minimum_size = Vector2(68, 68)
@@ -1234,6 +1242,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_wwsa2")
 placeholder_text = "Password"
+secret = true
 
 [node name="MaxPlayers" type="HBoxContainer" parent="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer" unique_id=782469459]
 layout_mode = 2
@@ -1923,6 +1932,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Ok"
+
+[node name="SubViewportContainer" parent="." unique_id=2006353339 instance=ExtResource("8_q3rjx")]
+layout_mode = 1
+offset_left = 408.00003
+offset_top = -189.0
+offset_right = 1158.0
+offset_bottom = 861.0
+scale = Vector2(0.3, 0.3)
+stretch = true
 
 [connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="openLobbyBrowser"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="openLobbyCreator"]

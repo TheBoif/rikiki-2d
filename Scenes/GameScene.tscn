@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://byraoqxwcqcfk"]
+[gd_scene format=3 uid="uid://byraoqxwcqcfk"]
 
 [ext_resource type="Texture2D" uid="uid://k7nkf430x015" path="res://Textures/2D_table.png" id="1_2wl7v"]
+[ext_resource type="Script" uid="uid://cui8c0k5pjcmb" path="res://Scripts/GameController.cs" id="1_4bvgx"]
 
-[node name="GameView" type="Node2D"]
+[node name="GameView" type="Node2D" unique_id=1019707729]
+script = ExtResource("1_4bvgx")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1902064959]
 position = Vector2(672.00006, 377.99997)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_2wl7v")

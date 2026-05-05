@@ -20,7 +20,7 @@ public partial class MenuScript : Node
 	[Export] VBoxContainer PlayerListContainer;
 	[Export] public GridContainer ColorGrid;
 
-	private long _pendingJoinLobbyID;
+	private string _pendingJoinLobbyID;
 
 	public override void _Ready()
 	{
@@ -58,7 +58,7 @@ public partial class MenuScript : Node
 		}
 	}
 
-	public void joinLobby(long lobbyID, string password = "")
+	public void joinLobby(string lobbyID, string password = "")
 	{
 		closeLobbyBrowser();
 		PopupMessage("Joining Lobby", "Attempting to join lobby...");
@@ -172,7 +172,7 @@ public partial class MenuScript : Node
 		LobbyCreator.Visible = false;
 	}
 
-	public void openPasswordPrompt(long lobbyID)
+	public void openPasswordPrompt(string lobbyID)
 	{
 		_pendingJoinLobbyID = lobbyID;
 		PasswordPrompt.GetNode<LineEdit>("Panel/MainVbox/Field").Text = "";
@@ -200,7 +200,7 @@ public partial class MenuScript : Node
 		StartGamePrompt.GetNode<Button>("Panel/MainVbox/HBoxContainer/Confirm").Disabled = true;
 		bool allReady = true;
 		bool allHaveColors = true;
-		foreach(var peer in LobbyScript.Instance.properties.players)
+		foreach(var peer in LobbyScript.Instance.properties.players.Values)
 		{
 			if(!peer.isReady) allReady = false;
 			if(peer.colorIndex == -1)
