@@ -4,61 +4,89 @@
 [ext_resource type="Shader" uid="uid://dj1n12fqrff5m" path="res://2D_Perspective.gdshader" id="1_h8wm0"]
 [ext_resource type="Texture2D" uid="uid://b73vvvbg7gbta" path="res://Textures/cards/C2.png" id="1_pnb5n"]
 [ext_resource type="Script" uid="uid://do7a6b3y1bg52" path="res://Scripts/CardScript.cs" id="2_3m7nw"]
+[ext_resource type="AudioStream" uid="uid://dgf4gku03lv0n" path="res://Sounds/Card draw 1.mp3" id="5_13sua"]
+[ext_resource type="AudioStream" uid="uid://dqc4apnfib6ht" path="res://Sounds/card draw 2.mp3" id="6_pbuqb"]
+[ext_resource type="AudioStream" uid="uid://dxtl78hbw8mkp" path="res://Sounds/card draw 3.mp3" id="7_f3ywt"]
+[ext_resource type="AudioStream" uid="uid://bm16jc4i2mi80" path="res://Sounds/card draw 4.mp3" id="8_6elyo"]
+[ext_resource type="AudioStream" uid="uid://b2k35wg2nr4ll" path="res://Sounds/card draw 8.mp3" id="9_13sua"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3m7nw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3m7nw"]
+resource_local_to_scene = true
 shader = ExtResource("1_h8wm0")
-shader_parameter/fov = 90.0
+shader_parameter/fov = 90.0000042275
 shader_parameter/cull_back = true
 shader_parameter/y_rot = 0.0
 shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8wm0"]
-shader = ExtResource("1_h8wm0")
-shader_parameter/fov = 90.0
-shader_parameter/cull_back = true
-shader_parameter/y_rot = 0.0
-shader_parameter/x_rot = 0.0
-shader_parameter/inset = 0.0
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_swj2d"]
+streams_count = 5
+stream_0/stream = ExtResource("5_13sua")
+stream_1/stream = ExtResource("6_pbuqb")
+stream_2/stream = ExtResource("7_f3ywt")
+stream_3/stream = ExtResource("8_6elyo")
+stream_4/stream = ExtResource("9_13sua")
 
-[node name="SubViewportContainer" type="SubViewportContainer" unique_id=2006353339]
-material = SubResource("ShaderMaterial_3m7nw")
-anchors_preset = -1
-offset_left = -375.0
-offset_top = -525.0
-offset_right = 375.0
-offset_bottom = 525.0
+[node name="Node2D" type="Node2D" unique_id=1517644618]
+
+[node name="Hitbox" type="Panel" parent="." unique_id=1941787869]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -425.0
+offset_top = -713.0
+offset_right = 425.0
+offset_bottom = 513.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(375, 525)
-size_flags_vertical = 4
-mouse_target = true
-script = ExtResource("2_3m7nw")
+pivot_offset = Vector2(350, 500)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3m7nw")
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=2000933808]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=2006353339 node_paths=PackedStringArray("CardTexture", "outlineSprite", "HoverSound")]
+material = SubResource("ShaderMaterial_3m7nw")
+anchors_preset = -1
+offset_left = -396.0
+offset_top = -554.0
+offset_right = 396.0
+offset_bottom = 555.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(396, 554)
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("2_3m7nw")
+CardTexture = NodePath("SubViewport/CardShape/CardTexture")
+outlineSprite = NodePath("SubViewport/Outline")
+HoverSound = NodePath("../HoverSound")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=2000933808]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(750, 1050)
+size = Vector2i(792, 1109)
 render_target_update_mode = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport" unique_id=1333226807]
+[node name="Outline" type="Sprite2D" parent="SubViewportContainer/SubViewport" unique_id=364077660]
+modulate = Color(1, 1, 0, 0.6509804)
 clip_children = 2
-material = SubResource("ShaderMaterial_h8wm0")
+scale = Vector2(1.0559999, 1.0559995)
 texture = ExtResource("1_3p273")
 centered = false
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Sprite2D" unique_id=1269381688]
+[node name="CardShape" type="Sprite2D" parent="SubViewportContainer/SubViewport" unique_id=1333226807]
+clip_children = 2
+position = Vector2(21, 29.4)
+texture = ExtResource("1_3p273")
+centered = false
+
+[node name="CardTexture" type="Sprite2D" parent="SubViewportContainer/SubViewport/CardShape" unique_id=1269381688]
 texture = ExtResource("1_pnb5n")
 centered = false
 
-[node name="Line2D" type="Line2D" parent="." unique_id=199845096]
-show_behind_parent = true
-points = PackedVector2Array(60, 60, 690, 60, 690, 990, 60, 990)
-closed = true
-width = 200.0
-default_color = Color(1, 1, 0, 0.29411766)
-joint_mode = 2
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="." unique_id=836054701]
+stream = SubResource("AudioStreamRandomizer_swj2d")
 
-[connection signal="gui_input" from="." to="." method="on_gui_input"]
-[connection signal="mouse_entered" from="." to="." method="on_mouse_enter"]
-[connection signal="mouse_exited" from="." to="." method="on_mouse_exit"]
+[connection signal="gui_input" from="Hitbox" to="SubViewportContainer" method="on_gui_input"]
+[connection signal="mouse_entered" from="Hitbox" to="SubViewportContainer" method="on_mouse_enter"]
+[connection signal="mouse_exited" from="Hitbox" to="SubViewportContainer" method="on_mouse_exit"]

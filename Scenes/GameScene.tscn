@@ -2,11 +2,53 @@
 
 [ext_resource type="Texture2D" uid="uid://k7nkf430x015" path="res://Textures/2D_table.png" id="1_2wl7v"]
 [ext_resource type="Script" uid="uid://cui8c0k5pjcmb" path="res://Scripts/GameController.cs" id="1_4bvgx"]
+[ext_resource type="PackedScene" uid="uid://j5opjmhpii58" path="res://Scenes/Card.tscn" id="3_3mbwn"]
+
+[sub_resource type="Curve2D" id="Curve2D_3mbwn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 1
 
 [node name="GameView" type="Node2D" unique_id=1019707729]
 script = ExtResource("1_4bvgx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1902064959]
-position = Vector2(672.00006, 377.99997)
-scale = Vector2(0.7, 0.7)
+position = Vector2(672, 314)
+scale = Vector2(0.56388885, 0.5638889)
 texture = ExtResource("1_2wl7v")
+
+[node name="Path2D" type="Path2D" parent="Sprite2D" unique_id=842503455]
+curve = SubResource("Curve2D_3mbwn")
+
+[node name="Card" parent="." unique_id=1517644618 instance=ExtResource("3_3mbwn")]
+position = Vector2(415, 713)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card2" parent="." unique_id=1558708534 instance=ExtResource("3_3mbwn")]
+position = Vector2(486, 714)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card3" parent="." unique_id=1028942447 instance=ExtResource("3_3mbwn")]
+position = Vector2(555, 713)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card4" parent="." unique_id=140890134 instance=ExtResource("3_3mbwn")]
+position = Vector2(633, 712)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card5" parent="." unique_id=925197695 instance=ExtResource("3_3mbwn")]
+position = Vector2(708, 712)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card6" parent="." unique_id=91103596 instance=ExtResource("3_3mbwn")]
+position = Vector2(787, 711)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card7" parent="." unique_id=1082880950 instance=ExtResource("3_3mbwn")]
+position = Vector2(854, 710)
+scale = Vector2(0.15, 0.15)
+
+[node name="Card8" parent="." unique_id=283733226 instance=ExtResource("3_3mbwn")]
+position = Vector2(927.00006, 710)
+scale = Vector2(0.15, 0.15)

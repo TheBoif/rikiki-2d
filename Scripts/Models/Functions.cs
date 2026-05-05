@@ -32,7 +32,8 @@ public static class Functions
 					{
 						isred = red == 1,
 						cardSuit = (CardSuit)suit,
-						value = val + 2
+						value = val + 2,
+                        texture = GD.Load<Texture2D>($"res://Textures/cards/{((CardSuit)suit).ToString().Substring(0,1)}{val + 2}.png")
 					};
 				}
 			}
