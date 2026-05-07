@@ -8,10 +8,14 @@ public partial class GameController : Node
 	Dictionary<long, Node2D> players = new Dictionary<long, Node2D>();
 	Dictionary<long, Node> playerHands = new Dictionary<long, Node>();
 	LobbyProperties currentLobby = LobbyScript.Instance.properties;
+	[Export] Sprite2D Table;
+	Sprite2D Arrow;
 	public override void _Ready()
 	{
 		GameNetworkScript.Instance.gameController = this;
+		Arrow = Table.GetNode<Sprite2D>("Arrow");
 		GameNetworkScript.Instance.RpcId(1, nameof(GameNetworkScript.Instance.playerLoadedToGameReq), currentLobby.LobbyID, GlobalScript.Instance.peer.GetUniqueId());
+		pointAtPlayer(0);
 	}
 	public override void _Process(double delta)
 	{
@@ -41,5 +45,20 @@ public partial class GameController : Node
 	public void showPlayer(long peerUID)
 	{
 		setPlayerPosition(peerUID);
+	}
+
+	public void pointAtPlayer(int index)
+	{
+		float radius = Table.Texture.GetSize().Y * Table.Scale.Y / 2;
+		float sidelength = (Table.Texture.GetSize().X * Table.Scale.X) - (radius * 2);
+		float totalLength = sidelength + (radius * radius * Mathf.Pi);
+
+		float distance = 1 / LobbyScript.Instance.properties.players.Count * index;
+
+		if((sidelength/2) / totalLength > distance || totalLength - ((sidelength/2) / totalLength) < distance)
+		{
+			Arrow.Position = new Vector2((distance / (sidelength/2) / totalLength) * (sidelength/2), radius);
+			Arrow.Rotation = 0;
+		}
 	}
 }

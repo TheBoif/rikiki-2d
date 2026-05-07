@@ -13,6 +13,7 @@ public class LobbyProperties
 	public int[] pointValues;
 
 	public string LobbyID;
+	public List<long> playerOrder;
 	public Dictionary<long, LobbyPlayer> players;
 
 	public LobbyProperties(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool revealCards, int[] pointValues)

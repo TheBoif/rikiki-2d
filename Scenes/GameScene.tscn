@@ -3,23 +3,21 @@
 [ext_resource type="Texture2D" uid="uid://k7nkf430x015" path="res://Textures/2D_table.png" id="1_2wl7v"]
 [ext_resource type="Script" uid="uid://cui8c0k5pjcmb" path="res://Scripts/GameController.cs" id="1_4bvgx"]
 [ext_resource type="PackedScene" uid="uid://j5opjmhpii58" path="res://Scenes/Card.tscn" id="3_3mbwn"]
+[ext_resource type="Texture2D" uid="uid://c4movwbssqxho" path="res://Textures/TurnIndicatorV2.png" id="3_jwv4s"]
 
-[sub_resource type="Curve2D" id="Curve2D_3mbwn"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0)
-}
-point_count = 1
-
-[node name="GameView" type="Node2D" unique_id=1019707729]
+[node name="GameView" type="Node2D" unique_id=1019707729 node_paths=PackedStringArray("Table")]
 script = ExtResource("1_4bvgx")
+Table = NodePath("Table")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1902064959]
+[node name="Table" type="Sprite2D" parent="." unique_id=1902064959]
 position = Vector2(672, 314)
-scale = Vector2(0.56388885, 0.5638889)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("1_2wl7v")
 
-[node name="Path2D" type="Path2D" parent="Sprite2D" unique_id=842503455]
-curve = SubResource("Curve2D_3mbwn")
+[node name="Arrow" type="Sprite2D" parent="Table" unique_id=931394955]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jwv4s")
+offset = Vector2(-0.5, -588)
 
 [node name="Card" parent="." unique_id=1517644618 instance=ExtResource("3_3mbwn")]
 position = Vector2(415, 713)
