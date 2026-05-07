@@ -731,7 +731,7 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[node name="Menu" type="Control" unique_id=1371461457 node_paths=PackedStringArray("LobbyView", "MouseBlocker", "LobbyBrowser", "LobbyCreator", "ColorSelectPanel", "PasswordPrompt", "StartGamePrompt", "PopupPanel", "CreatePasswordField", "LobbyListContainer", "PlayerListContainer", "ColorGrid")]
+[node name="Menu" type="Control" unique_id=1371461457 node_paths=PackedStringArray("LobbyView", "MouseBlocker", "LobbyBrowser", "LobbyCreator", "ColorSelectPanel", "PasswordPrompt", "UsernamePrompt", "StartGamePrompt", "PopupPanel", "CreatePasswordField", "LobbyListContainer", "PlayerListContainer", "ColorGrid")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -748,6 +748,7 @@ LobbyBrowser = NodePath("LobbyBrowser")
 LobbyCreator = NodePath("LobbyCreator")
 ColorSelectPanel = NodePath("ColorSelectPanel")
 PasswordPrompt = NodePath("PasswordPrompt")
+UsernamePrompt = NodePath("UsernamePrompt")
 StartGamePrompt = NodePath("StartGamePrompt")
 PopupPanel = NodePath("PopupPanel")
 CreatePasswordField = NodePath("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/Visibility/PasswordField")
@@ -839,7 +840,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Host Server"
 
-[node name="host server2" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1623964162]
+[node name="change username" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1623964162]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1810,6 +1811,101 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Confirm"
 
+[node name="UsernamePrompt" type="Control" parent="." unique_id=316829486]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UsernamePrompt" unique_id=1350732254]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -358.0
+offset_top = -138.0
+offset_right = 358.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wwsa2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2sctt")
+
+[node name="ButtonBar" type="HBoxContainer" parent="UsernamePrompt/Panel" unique_id=1875843559]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 11.0
+offset_right = -32.0
+offset_bottom = 79.0
+grow_horizontal = 2
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="UsernamePrompt/Panel/ButtonBar" unique_id=1341263577]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+text = "
+"
+
+[node name="Icon" type="TextureRect" parent="UsernamePrompt/Panel/ButtonBar/CloseButton" unique_id=659159487]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207031
+offset_top = 5.0
+offset_right = -0.00012207031
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xhh6f")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MainVbox" type="VBoxContainer" parent="UsernamePrompt/Panel" unique_id=2062215132]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = 28.0
+offset_right = -33.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="Window Label" type="Label" parent="UsernamePrompt/Panel/MainVbox" unique_id=1437179463]
+layout_mode = 2
+text = "Please select a username"
+horizontal_alignment = 1
+
+[node name="Hsep" type="HSeparator" parent="UsernamePrompt/Panel/MainVbox" unique_id=304620161]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_jsrd8")
+
+[node name="Field" type="LineEdit" parent="UsernamePrompt/Panel/MainVbox" unique_id=226151828]
+layout_mode = 2
+placeholder_text = "username"
+alignment = 1
+secret_character = "*"
+
+[node name="Confirm" type="Button" parent="UsernamePrompt/Panel/MainVbox" unique_id=2053790961]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Confirm"
+
 [node name="StartGamePrompt" type="Control" parent="." unique_id=1948158845]
 visible = false
 layout_mode = 1
@@ -1934,6 +2030,7 @@ text = "Ok"
 
 [connection signal="pressed" from="MenuContainer/VBoxContainer/join lobby" to="." method="openLobbyBrowser"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/create lobby" to="." method="openLobbyCreator"]
+[connection signal="pressed" from="MenuContainer/VBoxContainer/change username" to="." method="openUsernamePrompt"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ExitButton" to="." method="exitGame"]
 [connection signal="pressed" from="LobbyView/ButtonBar/LeaveButton" to="." method="leaveLobbyButton"]
 [connection signal="toggled" from="LobbyView/MainVbox/ReadyButton" to="." method="readyButtonToggled"]
@@ -1946,5 +2043,7 @@ text = "Ok"
 [connection signal="item_selected" from="LobbyCreator/MainVbox/ScrollContainer/VBoxContainer/RoundOrder/Field" to="." method="onVisibilityChanged"]
 [connection signal="pressed" from="LobbyCreator/Button" to="." method="createLobby"]
 [connection signal="pressed" from="PasswordPrompt/Panel/ButtonBar/CloseButton" to="." method="closePasswordPrompt"]
+[connection signal="pressed" from="UsernamePrompt/Panel/ButtonBar/CloseButton" to="." method="closeUsernamePrompt"]
+[connection signal="pressed" from="UsernamePrompt/Panel/MainVbox/Confirm" to="." method="onConfirmUsernamePressed"]
 [connection signal="pressed" from="StartGamePrompt/Panel/MainVbox/HBoxContainer/Confirm" to="." method="ConfirmStart"]
 [connection signal="pressed" from="StartGamePrompt/Panel/MainVbox/HBoxContainer/Cancel" to="." method="closeStartPrompt"]

@@ -12,7 +12,7 @@ public partial class ServerScript : Node
 	public ENetMultiplayerPeer peer;
 
 	// Networking defaults
-	public const int DefaultPort = 25564;
+	public const int DefaultPort = 25565;
 	public const int MaxClients = 4095;
 	public string ServerIp = "localhost";
 	bool setupDone = false;

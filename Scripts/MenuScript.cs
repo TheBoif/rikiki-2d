@@ -13,6 +13,7 @@ public partial class MenuScript : Node
 	[Export] Control LobbyCreator;
 	[Export] Control ColorSelectPanel;
 	[Export] Control PasswordPrompt;
+	[Export] Control UsernamePrompt;
 	[Export] Control StartGamePrompt;
 	[Export] Control PopupPanel;
 	[Export] Control CreatePasswordField;
@@ -26,6 +27,11 @@ public partial class MenuScript : Node
 	{
 		LobbyScript.Instance.LobbyListContainer = LobbyListContainer;
 		LobbyScript.Instance.PlayerListContainer = PlayerListContainer;
+
+		if(GlobalScript.Instance.playerName == "")
+		{
+			openUsernamePrompt();
+		}
 
 		PopupPanel.GetNode<Button>("Panel/MainVbox/OkButton").Pressed += () => PopupPanel.Visible = false;
 
@@ -70,6 +76,8 @@ public partial class MenuScript : Node
 	{
 		PopupPanel.Visible = false;
 		LobbyView.Visible = true;
+		LobbyView.GetNode<Label>("MainVbox/Window Label").Text = LobbyScript.Instance.properties.lobbyName;
+		LobbyView.GetNode<Label>("ButtonBar/LobbyID").Text = LobbyScript.Instance.properties.LobbyID;
 		LobbyScript.Instance.RpcId(1, nameof(LobbyScript.broadcastPlayerListUpdate), LobbyScript.Instance.properties.LobbyID);
 		openColorSelectPanel();
 	}
@@ -188,6 +196,28 @@ public partial class MenuScript : Node
 	public void closePasswordPrompt()
 	{
 		PasswordPrompt.Visible = false;
+	}
+
+	public void openUsernamePrompt()
+	{
+		UsernamePrompt.GetNode<LineEdit>("Panel/MainVbox/Field").Text = GlobalScript.Instance.playerName;
+		MouseBlocker.Visible = true;
+		UsernamePrompt.Visible = true;
+	}
+
+	public void onConfirmUsernamePressed()
+	{
+		GlobalScript.Instance.playerName = UsernamePrompt.GetNode<LineEdit>("Panel/MainVbox/Field").Text;
+		GlobalScript.Instance.config.SetValue("playerName", "PlayerName", GlobalScript.Instance.playerName);
+		GlobalScript.Instance.config.Save("user://userdata.json");
+		
+		closeUsernamePrompt();
+	}
+
+	public void closeUsernamePrompt()
+	{
+		UsernamePrompt.Visible = false;
+		MouseBlocker.Visible = false;
 	}
 
 	public void readyButtonToggled(bool pressed)

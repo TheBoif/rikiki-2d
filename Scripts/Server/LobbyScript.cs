@@ -201,16 +201,6 @@ public partial class LobbyScript : Node
 		}
 	}
 
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-	public void playerLoadedToGameReq(string lobbyID, long peerUID)
-	{
-		lobbies[lobbyID].players[peerUID].isReady = true;
-		foreach(var peer in lobbies[lobbyID].players.Values)
-		{
-			RpcId(peer.peerUID, nameof(playerLoadedToGameResp), lobbyID, peerUID);
-		}
-	}
-
 	#endregion
 
 	#region Network Event Handlers
@@ -230,7 +220,7 @@ public partial class LobbyScript : Node
 					lobbies.Remove(lobbyPair.LobbyID);
 					GD.Print($"Lobby {lobbyPair.LobbyID} removed due to all players leaving.");
 				}
-				broadcastPlayerListUpdate(lobby.LobbyID);
+				else broadcastPlayerListUpdate(lobby.LobbyID);
 				break;
 			}
 		}
@@ -428,12 +418,6 @@ public partial class LobbyScript : Node
 	{
 		GlobalScript.Instance.
 		GetTree().ChangeSceneToFile("res://Scenes/GameScene.tscn");
-	}
-
-	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void playerLoadedToGameResp(string lobbyID, long peerUID)
-	{
-		lobbies[lobbyID].players[peerUID].isReady = true;
 	}
 
 	#endregion

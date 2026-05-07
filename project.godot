@@ -23,6 +23,7 @@ config/features=PackedStringArray("4.6", "C#", "Mobile")
 Server="*res://Scripts/Server/ServerScript.cs"
 GlobalScript="*res://Scripts/GlobalScript.cs"
 Lobby="*res://Scripts/Server/LobbyScript.cs"
+GameNetworking="*uid://c5qqnfr0vs7if"
 
 [display]
 
