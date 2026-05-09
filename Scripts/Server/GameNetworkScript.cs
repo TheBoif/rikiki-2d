@@ -7,7 +7,6 @@ public partial class GameNetworkScript : Node
 {
 
 	public static GameNetworkScript Instance { get; private set; }
-	public GameController gameController {get; set;}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -26,29 +25,22 @@ public partial class GameNetworkScript : Node
 	public void playerLoadedToGameReq(string lobbyID, long peerUID)
 	{
 		LobbyScript.Instance.lobbies[lobbyID].players[peerUID].isReady = true;
-		foreach(var peer in LobbyScript.Instance.lobbies[lobbyID].players.Values)
-		{
-			PlayersReadyReq(lobbyID);
-		}
+		UpdatePlayersReadyReq(lobbyID);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-	public void PlayersReadyReq(string lobbyID)
+	public void UpdatePlayersReadyReq(string lobbyID)
 	{
-		List<long> ids = new List<long>();
 		List<int> readyStatus = new List<int>();
 
 		foreach(var peer in LobbyScript.Instance.lobbies[lobbyID].players.Values)
 		{
-
-			ids.Add(peer.peerUID);
 			readyStatus.Add(peer.isReady ? 1 : 0);
-
 		}
 
 		foreach(var peer in LobbyScript.Instance.lobbies[lobbyID].players.Values)
 		{
-			RpcId(peer.peerUID, nameof(playersReadyResp), ids.ToArray(), readyStatus.ToArray());
+			RpcId(peer.peerUID, nameof(UpdatePlayersReadyResp), LobbyScript.Instance.lobbies[lobbyID].playerOrder.ToArray(), readyStatus.ToArray());
 		}
 	}
 
@@ -56,12 +48,13 @@ public partial class GameNetworkScript : Node
 	#region Player Methods
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void playersReadyResp(long[] peerUID, int[] readyStatus)
+	public void UpdatePlayersReadyResp(long[] peerUID, int[] readyStatus)
 	{
 		for (int i = 0; i < peerUID.Length; i++)
 		{
 			LobbyScript.Instance.properties.players[peerUID[i]].isReady = readyStatus[i] == 1;
 		}
+		GameController.Instance.showLoadedPlayers();
 	}
 
 	#endregion

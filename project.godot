@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Rikiki 2D"
 run/main_scene="uid://b47yh3rjmhknp"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
+run/max_fps=360
 
 [autoload]
 
@@ -44,6 +45,10 @@ folder_colors={
 "res://Sounds/": "teal",
 "res://Textures/": "yellow"
 }
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input_devices]
 

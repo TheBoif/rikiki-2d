@@ -7,10 +7,11 @@ public class LobbyPlayer
 	public bool isReady = false;
 	public int currentGuess = 0;
 	public int currentHits = 0;
+	public int currentPlayer = 0;
 	public int score = 0;
 	List<Card> hand = new List<Card>();
 
-	public LobbyPlayer(string name, int colorIndex, int peerUID)
+	public LobbyPlayer(string name, int colorIndex, long peerUID)
 	{
 		this.name = name;
 		this.colorIndex = colorIndex;

@@ -928,6 +928,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "ABCDEF"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="PropertiesButton" type="Button" parent="LobbyView/ButtonBar" unique_id=1212678283]
 custom_minimum_size = Vector2(68, 68)

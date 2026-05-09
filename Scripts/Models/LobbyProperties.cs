@@ -9,7 +9,7 @@ public class LobbyProperties
 	public int timeLimit;
 	public RoundOrder roundOrder;
 	public bool revealCards;
-    public bool gameStarted = false;
+    public GameState gameState;
 	public int[] pointValues;
 
 	public string LobbyID;
@@ -27,6 +27,7 @@ public class LobbyProperties
 		this.roundOrder = roundOrder;
 		this.revealCards = revealCards;
 		this.pointValues = pointValues;
+		playerOrder = new List<long>();
 		players = new Dictionary<long, LobbyPlayer>();
 	}
 }

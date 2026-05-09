@@ -30,7 +30,7 @@ public partial class LobbyScript : Node
 	//Server run, sent by players
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-	public void lobbyCreateReq(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues, string hostName, int hostPeerUID)
+	public void lobbyCreateReq(string lobbyName, LobbyVisibility visibility, string password, int maxPlayers, int maxCards, int timeLimit, RoundOrder roundOrder, bool reveal, int[] pointValues, string hostName, long hostPeerUID)
 	{
 		LobbyPlayer hostPlayer = new LobbyPlayer(hostName, -1, hostPeerUID);
 		LobbyProperties newLobby = new LobbyProperties(lobbyName, visibility, password, maxPlayers, maxCards, timeLimit, roundOrder, reveal, pointValues);
@@ -46,14 +46,15 @@ public partial class LobbyScript : Node
 			}
 			newLobby.LobbyID = id + i;
 		}
-		newLobby.players.Add(hostPlayer.peerUID,hostPlayer);
+		newLobby.players.Add(hostPlayer.peerUID, hostPlayer);
+		newLobby.playerOrder.Add(hostPlayer.peerUID);
 		lobbies.Add(newLobby.LobbyID, newLobby);
 
 		RpcId(hostPeerUID, nameof(lobbyCreateResp), newLobby.LobbyID, lobbyName, (int)visibility, password, maxPlayers, maxCards, timeLimit, (int)roundOrder, reveal, pointValues);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-	public void lobbyJoinReq(int joiningUID, string lobbyID, string password, string playerName)
+	public void lobbyJoinReq(long joiningUID, string lobbyID, string password, string playerName)
 	{
 		if (!lobbies.ContainsKey(lobbyID))
 		{
@@ -63,7 +64,7 @@ public partial class LobbyScript : Node
 
 		LobbyProperties lobby = lobbies[lobbyID];
 
-		if (lobby.gameStarted)
+		if (lobby.gameState != GameState.Lobby)
 		{
 			RpcId(joiningUID, nameof(lobbyJoinError), "started");
 			return;
@@ -91,6 +92,7 @@ public partial class LobbyScript : Node
 		GD.Print($"Player {playerName} with UID {joiningUID} joined lobby {lobbyID}");
 
 		lobby.players.Add(joiningUID, new LobbyPlayer(playerName, -1, joiningUID));
+		lobby.playerOrder.Add(joiningUID);
 		RpcId(joiningUID, nameof(lobbyJoinResp), lobbyID, lobby.lobbyName, (int)lobby.visibility, lobby.password, lobby.maxPlayers, lobby.maxCards, lobby.timeLimit, (int)lobby.roundOrder, lobby.revealCards, lobby.pointValues);
 	}
 
@@ -129,8 +131,8 @@ public partial class LobbyScript : Node
 	public void viewLobbiesReq(int callerPeerUID)
 	{
 		List<string> lobbyIDs = new List<string>();
-		List<String> lobbyNames = new List<String>();
-		List<String> playerCount = new List<String>();
+		List<string> lobbyNames = new List<string>();
+		List<string> playerCount = new List<string>();
 		List<int> passwordProtected = new List<int>();
 		foreach(var lobby in lobbies.Values)
 		{
@@ -182,22 +184,19 @@ public partial class LobbyScript : Node
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
 	public void broadcastPlayerListUpdate(string lobbyID)
 	{
-		List<String> playerNames = new List<String>();
+		List<string> playerNames = new List<string>();
 		List<int> playerColorIndeces = new List<int>();
-		List<long> playerUIDs = new List<long>();
 		List<int> readyStatus = new List<int>();
 		GD.Print("Broadcasting player list update for lobby " + lobbyID);
 		foreach(var peer in lobbies[lobbyID].players.Values)
 		{
-			GD.Print($"Player in lobby: {peer.name}, color index: {peer.colorIndex}, UID: {peer.peerUID}, ready: {peer.isReady}");
 			playerNames.Add(peer.name);
 			playerColorIndeces.Add(peer.colorIndex);
-			playerUIDs.Add(peer.peerUID);
 			readyStatus.Add(peer.isReady ? 1 : 0);
 		}
 		foreach(var peer in lobbies[lobbyID].players.Values)
 		{
-			RpcId(peer.peerUID, nameof(updatePlayerList), playerNames.ToArray(), playerColorIndeces.ToArray(), playerUIDs.ToArray(), readyStatus.ToArray());
+			RpcId(peer.peerUID, nameof(updatePlayerList), playerNames.ToArray(), playerColorIndeces.ToArray(), lobbies[lobbyID].playerOrder.ToArray(), readyStatus.ToArray());
 		}
 	}
 
@@ -265,6 +264,7 @@ public partial class LobbyScript : Node
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
 	public void lobbyLeaveResp()
 	{
+		properties = null;
 		menuScript.lobbyLeftResp();
 	}
 
@@ -297,11 +297,12 @@ public partial class LobbyScript : Node
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
 	public void lobbyClosedResp()
 	{
+		properties = null;
 		menuScript.lobbyLeftResp("closed");
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void viewLobbiesResp(string[] lobbyIDs, String[] lobbyNames, String[] playerCounts, int[] passwordProtected)
+	public void viewLobbiesResp(string[] lobbyIDs, string[] lobbyNames, string[] playerCounts, int[] passwordProtected)
 	{
 		foreach(Node child in LobbyListContainer.GetChildren())
 		{
@@ -341,7 +342,7 @@ public partial class LobbyScript : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false)]
-	public void updatePlayerList(String[] playerNames, int[] playerColorIndeces, int[] peerUIDs, int[] readyStatuses)
+	public void updatePlayerList(string[] playerNames, int[] playerColorIndeces, long[] peerUIDs, int[] readyStatuses)
 	{
 		if(properties == null)
 		{
@@ -361,6 +362,9 @@ public partial class LobbyScript : Node
 			button.Disabled = false;
 			button.Icon = null;
 		}
+		
+		properties.playerOrder.Clear();
+		properties.playerOrder = [.. peerUIDs];
 
 		for(int i = 0; i < playerNames.Length; i++)
 		{

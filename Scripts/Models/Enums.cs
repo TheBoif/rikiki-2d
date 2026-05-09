@@ -20,3 +20,12 @@ public enum RoundOrder
 	oneMax = 2,
 	maxOne = 3
 }
+
+public enum GameState
+{
+	Lobby = 0,
+	Waiting = 1,
+	Betting = 2,
+	CardPlaying = 3,
+	GameOver = 4
+}

@@ -75,15 +75,17 @@ public partial class MenuScript : Node
 	public void lobbyJoinedResp()
 	{
 		PopupPanel.Visible = false;
-		LobbyView.Visible = true;
 		LobbyView.GetNode<Label>("MainVbox/Window Label").Text = LobbyScript.Instance.properties.lobbyName;
 		LobbyView.GetNode<Label>("ButtonBar/LobbyID").Text = LobbyScript.Instance.properties.LobbyID;
+		LobbyView.Visible = true;
 		LobbyScript.Instance.RpcId(1, nameof(LobbyScript.broadcastPlayerListUpdate), LobbyScript.Instance.properties.LobbyID);
 		openColorSelectPanel();
 	}
 
 	public void lobbyCreatedResp()
 	{
+		LobbyView.GetNode<Label>("MainVbox/Window Label").Text = LobbyScript.Instance.properties.lobbyName;
+		LobbyView.GetNode<Label>("ButtonBar/LobbyID").Text = LobbyScript.Instance.properties.LobbyID;
 		LobbyView.Visible = true;
 		LobbyScript.Instance.RpcId(1, nameof(LobbyScript.broadcastPlayerListUpdate), LobbyScript.Instance.properties.LobbyID);
 		openColorSelectPanel();
@@ -230,8 +232,9 @@ public partial class MenuScript : Node
 		StartGamePrompt.GetNode<Button>("Panel/MainVbox/HBoxContainer/Confirm").Disabled = true;
 		bool allReady = true;
 		bool allHaveColors = true;
-		foreach(var peer in LobbyScript.Instance.properties.players.Values)
+		foreach(var peerID in LobbyScript.Instance.properties.playerOrder)
 		{
+			var peer = LobbyScript.Instance.properties.players[peerID];
 			if(!peer.isReady) allReady = false;
 			if(peer.colorIndex == -1)
 			{
@@ -289,7 +292,7 @@ public partial class MenuScript : Node
 	public void createLobby()
 	{
 		VBoxContainer optionsContainer = GetNode<VBoxContainer>("LobbyCreator/MainVbox/ScrollContainer/VBoxContainer");
-		String lobbyName = optionsContainer.GetNode<LineEdit>("Name/Field").Text;
+		string lobbyName = optionsContainer.GetNode<LineEdit>("Name/Field").Text;
 		int visibility = optionsContainer.GetNode<OptionButton>("Visibility/Field").Selected;
 		string password = "";
 		if(visibility == 1)

@@ -11,6 +11,8 @@ public partial class CardScript : SubViewportContainer
 	int originalIndex;
 	private float targetXRot = 0f;
 	private float targetYRot = 0f;
+	bool mouseLeft = false;
+	GameController gameController;
 
 	Card cardData;
 	[Export] Sprite2D CardTexture;
@@ -23,6 +25,8 @@ public partial class CardScript : SubViewportContainer
 		trueScale = Scale;
 		truePos = Position;
 		PivotOffset = Size / 2;
+		gameController = GameController.Instance;
+
 
 		Card[] deck = Functions.CreateDeck();
 		setAsCard(deck[GD.Randi() % deck.Length]);
@@ -51,6 +55,15 @@ public partial class CardScript : SubViewportContainer
 
 		float newX = Mathf.Lerp(currentX, targetXRot, (float)delta * 20.0f);
 		float newY = Mathf.Lerp(currentY, targetYRot, (float)delta * 20.0f);
+		
+		if ((Mathf.Abs(newX) + 90) % 360 > 180 ^ (Mathf.Abs(newY) + 90) % 360 > 180)
+		{
+			CardTexture.Texture = cardData.isred ? GlobalScript.Instance.redCardBackTexture : GlobalScript.Instance.blueCardBackTexture;
+		}
+		else
+		{
+			CardTexture.Texture = cardData.texture;
+		}
 
 		shaderMaterial.SetShaderParameter("x_rot", newX);
 		shaderMaterial.SetShaderParameter("y_rot", newY);
@@ -58,9 +71,10 @@ public partial class CardScript : SubViewportContainer
 
 	void on_gui_input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion mouseEvent)
+		if (@event is InputEventMouseMotion mouseMove)
 		{
-			Vector2 mousePos = mouseEvent.Position;
+			Vector2 mousePos = mouseMove.Position;
+			if(mouseLeft) return;
 			Vector2 diff = (Position + Size) - mousePos;
 			double lerpValX = Mathf.Remap(mousePos.X, 0.0, Size.X, 0, 1);
 			double lerpValY = Mathf.Remap(mousePos.Y, 0.0, Size.Y, 0, 1);
@@ -70,12 +84,17 @@ public partial class CardScript : SubViewportContainer
 			targetXRot = (float)rotationX;
 			targetYRot = (float)rotationY;
 		}
+		else if (@event is InputEventMouseButton mouseClick && mouseClick.ButtonIndex == MouseButton.Left && mouseClick.Pressed)
+		{
+			GameController.Instance.nextPlayer();
+		}
 	}
 
 	void on_mouse_enter()
 	{
 		scaleTween?.Kill();
 		HoverSound.Play();
+		mouseLeft = false;
 
 		// Control nodes determine input priority by tree order. 
 		// Moving this node to the end of the parent's children list makes it "on top" for inputs.
@@ -99,6 +118,7 @@ public partial class CardScript : SubViewportContainer
 	void on_mouse_exit()
 	{
 
+		mouseLeft = true;
 		// Restore the original tree index so the card returns to its correct layout position
 		// if you are using a Container (like HBoxContainer), otherwise it will stay at the front.
 		GetParent().GetParent().MoveChild(GetParent(), originalIndex);
